@@ -1,0 +1,23 @@
+---
+layout: layouts/base.njk
+permalink: /404.html
+eleventyExcludeFromCollections: true
+title: "Page Not Found | Laura, My Sweets"
+description: "That page couldn't be found. Find custom cakes, Quick Order cakes, prices and more from Laura, My Sweets in Coopersburg, PA."
+noindex: true
+---
+{%- import "partials/icons.njk" as i -%}
+<section class="page-hero" style="padding-bottom:72px">
+  {% sprinkles "404", 12 %}
+  <div class="wrap">
+    <span class="script-label">Oops, a crumb went missing</span>
+    <h1>We couldn't find <em>that page.</em></h1>
+    <p class="lede">The page may have moved when the site was updated. Here are some good places to start.</p>
+    <div class="hero-ctas page-ctas">
+      <a class="btn btn-primary" href="/">Go to the homepage {{ i.icon("arrow", 18) }}</a>
+      <a class="btn btn-outline" href="/order/">Start a custom order</a>
+    </div>
+  </div>
+</section>
+{%- set related = ["quick-order", "menu", "gallery", "birthday-cakes", "wedding-cakes", "faq"] %}
+{% include "partials/related.njk" %}

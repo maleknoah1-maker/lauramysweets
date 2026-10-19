@@ -12,6 +12,7 @@ related: [faq, menu, order]
 {%- import "partials/icons.njk" as i -%}
 <section class="section" style="padding-top:0">
   <div class="wrap">
+    <h2 class="sr-only">All guides</h2>
     <div class="post-list">
       {%- for post in collections.posts | reverse %}
       <a class="card reveal" href="{{ post.url }}">

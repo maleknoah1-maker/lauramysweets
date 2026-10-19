@@ -511,3 +511,5 @@ a.card:hover, .card.lift:hover { transform: translateY(-4px); box-shadow: var(--
 .prose .flavor-list, .prose .price-list { padding: 0; margin: 0; }
 .prose .flavor-list li { margin: 0; }
 .prose .price-card h3 { margin: 0 0 12px; }
+
+h2.h3 { font-size: 1.5rem; margin: 0 0 12px; }

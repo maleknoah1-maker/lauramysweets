@@ -44,7 +44,7 @@ description: "Custom birthday cakes, wedding cakes, cupcakes and cake pops, bake
     <div class="hero-photos">
       <div class="circle-mint" aria-hidden="true"></div>
       <div class="circle-blush" aria-hidden="true"></div>
-      <div class="photo-frame photo-arch">{% image hero.main.src, hero.main.alt, "(min-width: 1024px) 350px, 270px", { eager: true } %}</div>
+      <div class="photo-frame photo-arch">{% image hero.main.src, hero.main.alt, preloadSizes, { eager: true } %}</div>
       <div class="photo-frame photo-circle">{% image hero.circle.src, hero.circle.alt, "(min-width: 1024px) 190px, 120px" %}</div>
       <div class="photo-frame photo-rect">{% image hero.rect.src, hero.rect.alt, "200px" %}</div>
       {%- if c.quickFrom %}

@@ -1,5 +1,5 @@
 ---
-title: "Buttercream vs. Fondant: Which Is Right for Your Cake? | Laura, My Sweets"
+title: "Buttercream vs. Fondant: Which Is Right? | Laura, My Sweets"
 headline: "Buttercream vs. fondant: which is right for your cake?"
 heading: "Buttercream vs. fondant: <em>which is right?</em>"
 label: Cake guides

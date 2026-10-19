@@ -17,14 +17,12 @@ export default {
       alt: "Four-tier black and white striped wedding cake with cascading sugar flowers",
     },
   },
+  // Must match the hero <img> sizes exactly, or the browser downloads the photo twice.
+  preloadSizes: "(min-width: 1024px) 350px, 270px",
   eleventyComputed: {
-    preloadImage: async () => {
-      const meta = await Image(HERO, { widths: [360, 720, 1200], formats: ["webp"], outputDir: "_site/img/", urlPath: "/img/" });
-      return meta.webp.find((s) => s.width >= 360).url;
-    },
-    ogImageUrl: async () => {
-      const meta = await Image(HERO, { widths: [360, 720, 1200], formats: ["webp"], outputDir: "_site/img/", urlPath: "/img/" });
-      return meta.webp[meta.webp.length - 1].url;
+    preloadSrcset: async () => {
+      const meta = await Image(HERO, { widths: [360, 540, 720, 1200, "auto"], formats: ["webp"], outputDir: "_site/img/", urlPath: "/img/" });
+      return meta.webp.map((s) => `${s.url} ${s.width}w`).join(", ");
     },
   },
 };

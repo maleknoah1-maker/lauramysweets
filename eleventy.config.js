@@ -1,5 +1,6 @@
 import Image from "@11ty/eleventy-img";
 import path from "node:path";
+import { buildSchema } from "./src/_config/schema.js";
 
 const PLACEHOLDER = /\[\[PLACEHOLDER:[^\]]*\]\]/;
 
@@ -12,7 +13,7 @@ const sourcePath = (src) => path.join("src", src.replace(/^\//, ""));
 async function imageHtml(src, alt, sizes = "100vw", attrs = {}) {
   if (!alt) throw new Error(`Missing alt text for ${src}`);
   const metadata = await Image(sourcePath(src), {
-    widths: [360, 720, 1200],
+    widths: [360, 540, 720, 1200, "auto"],
     formats: ["webp"],
     outputDir: "_site/img/",
     urlPath: "/img/",
@@ -67,9 +68,14 @@ function sprinkleHtml(seed = "s", count = 8, opts = {}) {
 
 export default function (eleventyConfig) {
   eleventyConfig.addShortcode("sprinkles", sprinkleHtml);
+  eleventyConfig.addShortcode("schema", function () {
+    return buildSchema(this.ctx);
+  });
 
   eleventyConfig.addPassthroughCopy({ "src/assets": "assets" });
   eleventyConfig.addPassthroughCopy({ "src/favicons": "/" });
+  // Originals stay reachable at the paths the CMS writes (used in structured data).
+  eleventyConfig.addPassthroughCopy({ "src/images/originals": "images/originals" });
 
   // Self-hosted fonts, Latin subset only.
   const fonts = {
@@ -91,7 +97,7 @@ export default function (eleventyConfig) {
   // URL of a single size, for preloads and social images.
   eleventyConfig.addAsyncShortcode("imageUrl", async (src, width = 720) => {
     const metadata = await Image(sourcePath(src), {
-      widths: [360, 720, 1200],
+      widths: [360, 540, 720, 1200, "auto"],
       formats: ["webp"],
       outputDir: "_site/img/",
       urlPath: "/img/",
@@ -128,6 +134,25 @@ export default function (eleventyConfig) {
         : item
     );
   });
+
+  // Plain-text outputs (llms.txt, robots.txt) shouldn't carry HTML entities.
+  eleventyConfig.addTransform("plainText", function (content) {
+    if (!(this.page.outputPath || "").endsWith(".txt")) return content;
+    return content
+      .replace(/&#39;/g, "'")
+      .replace(/&quot;/g, '"')
+      .replace(/&lt;/g, "<")
+      .replace(/&gt;/g, ">")
+      .replace(/&amp;/g, "&")
+      .replace(/\n{3,}/g, "\n\n");
+  });
+
+  // Indexable pages only: no noindex pages, redirect stubs or the 404.
+  eleventyConfig.addFilter("sitemapPages", (all) =>
+    all
+      .filter((p) => p.url && p.url.endsWith("/") && !p.data.noindex && !p.data.redirectTo)
+      .sort((a, b) => a.url.localeCompare(b.url))
+  );
 
   eleventyConfig.addFilter("isoDate", (d) => new Date(d).toISOString().slice(0, 10));
   eleventyConfig.addFilter("longDate", (d) =>

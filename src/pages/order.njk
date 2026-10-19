@@ -101,7 +101,7 @@ hideCta: true
 
     <aside class="reveal" style="display:grid;gap:20px">
       <div class="price-card">
-        <h3>Before you order</h3>
+        <h2 class="h3">Before you order</h2>
         <ul class="facts" style="margin:0">
           <li>{{ i.checkDot() }}<span><strong>Lead time:</strong> {{ s.leadTime | ph | safe }}</span></li>
           <li>{{ i.checkDot() }}<span><strong>Payment:</strong> {{ s.paymentTerms | ph | safe }}</span></li>
@@ -111,7 +111,7 @@ hideCta: true
       </div>
       {%- if booking.blockouts | length %}
       <div class="price-card">
-        <h3>Unavailable dates</h3>
+        <h2 class="h3">Unavailable dates</h2>
         <ul>{% for b in booking.blockouts %}<li>{{ b.start }}{% if b.end and b.end != b.start %} to {{ b.end }}{% endif %}{% if b.note %} ({{ b.note }}){% endif %}</li>{% endfor %}</ul>
       </div>
       {%- endif %}
@@ -120,7 +120,7 @@ hideCta: true
         <p style="margin-top:10px"><a class="btn btn-primary" href="/quick-order/" data-track="quick_order_click">See Quick Order cakes</a></p>
       </div>
       <div class="price-card">
-        <h3>Rather talk?</h3>
+        <h2 class="h3">Rather talk?</h2>
         <p>Text or call <a href="tel:{{ computed.tel }}" data-track="phone_click">{{ s.phone }}</a>, or email <a href="mailto:{{ s.email }}">{{ s.email }}</a>.</p>
       </div>
     </aside>

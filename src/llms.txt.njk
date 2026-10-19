@@ -1,0 +1,54 @@
+---
+permalink: /llms.txt
+eleventyExcludeFromCollections: true
+---
+{%- import "partials/prices.njk" as prices -%}
+{%- set s = settings -%}
+# {{ s.name }}
+
+> Licensed and insured home bakery in {{ s.city }}, {{ s.region }} {{ s.zip }}, run by {{ s.owner }} since {{ s.since }}. Custom cakes, cupcakes, cake pops and dessert treats, made to order. Custom orders only; there is no walk-in storefront.
+
+- Phone (calls and texts): {{ s.phone }}
+- Email: {{ s.email }}
+- Location: {{ s.city }}, {{ s.region }} {{ s.zip }} (pickup); delivery available
+- Service area: {{ s.serviceArea | join(", ") }}
+- Payment: {{ s.payments | join(", ") }}
+- Google rating: {{ s.google.rating | rating }} from {{ s.google.count }} reviews
+- Order online: {{ site.url }}/order/
+
+## Prices
+
+{% for k, label in { cakes: "Cakes", cupcakes: "Cupcakes", cakePops: "Cake pops", other: "Other treats" } -%}
+### {{ label }}
+{% for item in menu[k].items -%}
+- {{ item.name }}{% if item.serves %} (serves {{ item.serves }}){% endif %}: {{ prices.priceText(item) | trim }}{% if item.note %}. {{ item.note }}{% endif %}
+{% endfor -%}
+{%- if menu[k].minimum %}- {{ menu[k].minimum }}
+{% endif -%}
+{%- if menu[k].tieredNote %}- {{ menu[k].tieredNote }}
+{% endif %}
+{% endfor -%}
+### Quick Order cakes ({{ quickOrder.noticeDays }} days' notice, order by {{ computed.cutoffLabel }})
+{% for d in computed.quickAvailable -%}
+- {{ d.name }}: {{ d.price6 | money }} ({{ quickOrder.sizes[0].label }}, serves {{ quickOrder.sizes[0].serves }}) or {{ d.price8 | money }} ({{ quickOrder.sizes[1].label }}, serves {{ quickOrder.sizes[1].serves }}). {{ d.description }}
+{% endfor -%}
+- Add-on: {{ quickOrder.topper.name }}, {{ quickOrder.topper.price | money }}
+
+## Flavors
+
+- Cake flavors: {% for f in flavors.cake %}{{ f.name }}{% if not f.cupcakes %} (cakes only){% endif %}{% if not loop.last %}, {% endif %}{% endfor %}
+- Fillings: {{ flavors.fillings | join(", ") }}
+- Flavored buttercream fillings: {{ flavors.buttercreamFillings | join(", ") }}
+- Dessert shooter flavors: {{ flavors.shooters | join(", ") }}
+{% for r in flavors.rules %}- {{ r }}
+{% endfor %}
+## Pages
+
+{% for k, p in pages -%}
+{%- if k != "privacy" %}- [{{ p.label }}]({{ site.url }}{{ p.url }}){% if p.blurb %}: {{ p.blurb }}{% endif %}
+{% endif -%}
+{%- endfor %}
+{%- for post in collections.posts %}- [{{ post.data.headline }}]({{ site.url }}{{ post.url }})
+{% endfor %}
+{%- for h in collections.seasonal %}- [{{ h.data.title }} treats]({{ site.url }}{{ h.url }}): {{ "taking pre-orders" if h.data.status == "on" else "back next season" }}
+{% endfor %}
