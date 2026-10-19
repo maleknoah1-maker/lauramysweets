@@ -63,7 +63,7 @@ Intro, pickup dates, pre-order deadline, and the three treats (name, description
 | What | Where to fix |
 |---|---|
 | 4 Formspree form IDs: custom order, Quick Order, classes, seasonal waitlist | Code: `src/_data/site.json`. Until set, forms say "This form isn't connected yet" and point people to text or call |
-| GA4 measurement ID | Code: `src/_data/site.json`. Analytics stays off until it's set |
+| ~~GA4 measurement ID~~ | Done: G-R4TYEHYMRQ in `src/_data/site.json` |
 | **Photo uploads on the order form need a paid Formspree plan.** For now the form says "Text your inspiration photos to (484) 293-1329" | Decide on a plan; then I'll add an upload field |
 | Online payment for Quick Order (future) | Her current process stays: invoice within 24 hours |
 | Privacy policy effective date | Code: `src/pages/privacy.njk` at launch |
