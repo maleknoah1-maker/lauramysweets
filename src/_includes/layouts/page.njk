@@ -1,0 +1,32 @@
+---
+layout: layouts/base.njk
+---
+{#- Inner pages: breadcrumbs, page hero, content, related links, call to action.
+    Front matter: key, label (script label), heading (HTML, one <em> accent), lede, related (page keys), hideCta -#}
+{%- import "partials/icons.njk" as i -%}
+{% include "partials/breadcrumbs.njk" %}
+
+<section class="page-hero">
+  {% sprinkles "hero-" + page.url, 10, { top: 6, bottom: 90 } %}
+  <div class="wrap">
+    {%- if label %}<span class="script-label">{{ label }}</span>{% endif %}
+    <h1>{% if heading %}{{ heading | safe }}{% else %}{{ title }}{% endif %}</h1>
+    {%- if lede %}<p class="lede">{{ lede | ph | safe }}</p>{% endif %}
+    {%- if heroCtas %}
+    <div class="hero-ctas page-ctas">
+      <a class="btn btn-primary" href="/order/">Start a custom order {{ i.icon("arrow", 18) }}</a>
+      <a class="btn btn-outline" href="sms:{{ computed.tel }}" data-track="text_click">Text {{ settings.phone }}</a>
+    </div>
+    {%- endif %}
+  </div>
+</section>
+
+{{ content | safe }}
+
+{%- if related %}
+{% include "partials/related.njk" %}
+{%- endif %}
+
+{%- if not hideCta %}
+{% include "partials/cta.njk" %}
+{%- endif %}

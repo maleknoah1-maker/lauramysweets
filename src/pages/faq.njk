@@ -1,0 +1,23 @@
+---
+layout: layouts/page.njk
+permalink: /faq/
+key: faq
+title: "Custom Cake FAQ | Laura, My Sweets, Coopersburg PA"
+label: Questions and answers
+heading: "Frequently asked <em>questions.</em>"
+description: "Answers about ordering custom cakes from Laura, My Sweets in Coopersburg, PA: lead time, servings, flavors, delivery, fondant, payment and kids' classes."
+lede: "Everything people usually ask before ordering. Still wondering about something? Text or call Laura."
+related: [order, menu, policies]
+---
+<section class="section" style="padding-top:0">
+  <div class="wrap">
+    <div class="faq-list">
+      {%- for f in faqs %}
+      <details>
+        <summary>{{ f.q }}</summary>
+        <div><p>{{ f.a | ph | safe }}</p></div>
+      </details>
+      {%- endfor %}
+    </div>
+  </div>
+</section>

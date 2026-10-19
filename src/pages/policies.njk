@@ -1,0 +1,45 @@
+---
+layout: layouts/page.njk
+permalink: /policies/
+key: policies
+title: "Ordering Policies | Laura, My Sweets"
+label: The fine print, kept simple
+heading: "Ordering <em>policies.</em>"
+description: "How ordering, payment, pickup, delivery and cancellations work at Laura, My Sweets, a licensed and insured home bakery in Coopersburg, PA."
+lede: "How ordering, payment, pickup and delivery work."
+related: [order, quick-order, faq]
+---
+{%- set s = settings -%}
+<section class="section" style="padding-top:0">
+  <div class="wrap prose">
+    <h2>Ordering</h2>
+    <p>{{ s.name }} is a licensed and insured home bakery in {{ s.city }}, {{ s.region }}. All orders are custom orders; there is no walk-in storefront.</p>
+    <ul>
+      <li><strong>Custom orders:</strong> request through the <a href="/order/">custom order form</a>, by text or call at {{ s.phone }}, or by email at {{ s.email }}. How far ahead to order: {{ s.leadTime | ph | safe }}</li>
+      <li><strong>Quick Order cakes:</strong> need {{ quickOrder.noticeDays }} full days' notice. Order by {{ computed.cutoffLabel }}, {{ quickOrder.noticeDays }} days before your pickup day. Designs are made exactly as shown; colors can be changed.</li>
+      <li>Laura replies within {{ s.replyTime | ph | safe }}</li>
+    </ul>
+
+    <h2>Payment</h2>
+    <p>Accepted: {{ s.payments | join(", ") }}.</p>
+    <ul>
+      <li><strong>Custom orders:</strong> {{ s.paymentTerms | ph | safe }}</li>
+      <li><strong>Quick Order cakes:</strong> {% for r in quickOrder.rules %}{% if loop.first %}{{ r }}{% endif %}{% endfor %}</li>
+    </ul>
+
+    <h2>Pickup</h2>
+    <p>Pickup is in {{ s.city }}. <mark class="ph">[[PLACEHOLDER: how the pickup address is shared with customers]]</mark> Quick Order pickup windows are {{ s.pickupWindows | join(" or ") }}, confirmed by text or email.</p>
+
+    <h2>Delivery</h2>
+    <p>Delivery is available. {{ s.deliveryNote | ph | safe }}</p>
+
+    <h2>Changes and cancellations</h2>
+    <p><mark class="ph">[[PLACEHOLDER: change and cancellation policy]]</mark></p>
+
+    <h2>Allergies</h2>
+    <p><mark class="ph">[[PLACEHOLDER: allergy, nut and gluten-free policy]]</mark></p>
+  </div>
+</section>
+
+{%- set faqItems = faqs | faqsFor("policies") -%}
+{% include "partials/faq.njk" %}

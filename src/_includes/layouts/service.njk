@@ -1,0 +1,15 @@
+---
+layout: layouts/page.njk
+heroCtas: true
+---
+{#- Service and category pages: intro + prices (page content), filtered gallery,
+    how ordering works, reviews, FAQ. Related links and CTA come from page.njk. -#}
+{{ content | safe }}
+
+{% include "partials/gallery-grid.njk" %}
+{% include "partials/how-it-works.njk" %}
+{% include "partials/reviews.njk" %}
+{%- set faqItems = faqs | faqsFor(key) -%}
+{%- if faqItems | length %}
+{% include "partials/faq.njk" %}
+{%- endif %}

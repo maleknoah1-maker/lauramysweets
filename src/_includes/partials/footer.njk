@@ -1,0 +1,53 @@
+{%- import "partials/icons.njk" as i -%}
+{%- set s = settings -%}
+<footer class="site-footer">
+  {% sprinkles "footer", 6 %}
+  <div class="wrap">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a class="brand" href="/"><span class="brand-badge">{{ i.icon("cake", 26, "#292325") }}</span><span class="brand-name">{{ s.name }}</span></a>
+        <p>A licensed and insured home bakery in {{ s.city }}, {{ s.region }}, making custom cakes and treats since {{ s.since }}. Custom orders only; no walk-in storefront.</p>
+        <div class="socials">
+          <a href="{{ s.social.facebook }}" rel="noopener" aria-label="{{ s.name }} on Facebook">{{ i.icon("facebook", 20) }}</a>
+          <a href="{{ s.social.instagram }}" rel="noopener" aria-label="{{ s.name }} on Instagram">{{ i.icon("instagram", 20) }}</a>
+        </div>
+      </div>
+
+      <div>
+        <h2>Contact</h2>
+        <ul>
+          <li><a href="tel:{{ computed.tel }}" data-track="phone_click">Call {{ s.phone }}</a></li>
+          <li><a href="sms:{{ computed.tel }}" data-track="text_click">Text {{ s.phone }}</a></li>
+          <li><a href="mailto:{{ s.email }}">{{ s.email }}</a></li>
+          <li>{{ s.city }}, {{ s.region }} {{ s.zip }}</li>
+          <li>Hours: {{ s.hours | ph | safe }}</li>
+        </ul>
+      </div>
+
+      <div>
+        <h2>Cakes &amp; treats</h2>
+        <ul>
+          {%- for child in nav.main[0].children %}
+          <li><a href="{{ child.url }}">{{ child.label }}</a></li>
+          {%- endfor %}
+          <li><a href="/quick-order/">Quick Order cakes</a></li>
+          <li><a href="/gallery/">Gallery</a></li>
+          <li><a href="/holiday/">Holiday treats</a></li>
+          <li><a href="/classes/">Kids' classes &amp; camp</a></li>
+          <li><a href="/blog/">Cake guides</a></li>
+          <li><a href="/faq/">FAQ</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="towns">
+      <h2>Serving</h2>
+      <p>{{ s.serviceArea | join(", ") }}, Pennsylvania.</p>
+    </div>
+
+    <div class="footer-bottom">
+      <span>&copy; {{ build.year }} {{ s.name }}. Licensed &amp; insured.</span>
+      <span><a href="/policies/">Ordering policies</a> &middot; <a href="/privacy/">Privacy</a></span>
+    </div>
+  </div>
+</footer>

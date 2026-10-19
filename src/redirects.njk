@@ -1,0 +1,27 @@
+---
+pagination:
+  data: redirects
+  size: 1
+  alias: r
+permalink: "{{ r.from }}index.html"
+eleventyExcludeFromCollections: true
+eleventyComputed:
+  redirectTo: "{{ r.to }}"
+---
+{#- Old Wix URLs. GitHub Pages can't send server redirects, so each old path gets a tiny page.
+    GitHub Pages itself sends /old-path to /old-path/ with a 301, so both forms work.
+    /menu, /gallery, /birthday-cakes and /wedding-cakes already match new pages and need no stub. -#}
+<!doctype html>
+<html lang="en-US">
+<head>
+  <meta charset="utf-8">
+  <title>This page has moved | {{ settings.name }}</title>
+  <link rel="canonical" href="{{ site.url }}{{ r.to }}">
+  <meta http-equiv="refresh" content="0; url={{ r.to }}">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>body{font-family:system-ui,sans-serif;background:#FBF7F4;color:#292325;display:grid;place-items:center;min-height:100vh;margin:0;padding:16px;text-align:center}a{color:#292325}</style>
+</head>
+<body>
+  <p>This page has moved to <a href="{{ r.to }}">{{ site.url }}{{ r.to }}</a>.</p>
+</body>
+</html>

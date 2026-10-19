@@ -1,0 +1,20 @@
+[
+  {
+    "image": "/images/originals/three-tier-painted-flower-cake.webp",
+    "alt": "Three-tier white buttercream cake with hand-painted spring flowers in red, pink, yellow and purple",
+    "category": "Wedding & Events",
+    "featured": true
+  },
+  {
+    "image": "/images/originals/pink-vintage-birthday-cake.webp",
+    "alt": "Pink and white vintage-style buttercream birthday cake with ruffled piping and a gold Happy Birthday topper",
+    "category": "Birthday",
+    "featured": true
+  },
+  {
+    "image": "/images/originals/black-white-striped-wedding-cake.webp",
+    "alt": "Four-tier black and white striped wedding cake with cascading pink, orange and white sugar flowers",
+    "category": "Wedding & Events",
+    "featured": true
+  }
+]

@@ -1,0 +1,60 @@
+{
+  "name": "Laura, My Sweets",
+  "owner": "Laura Malek",
+  "since": 2009,
+  "phone": "(484) 293-1329",
+  "email": "lauramysweets@gmail.com",
+  "city": "Coopersburg",
+  "region": "PA",
+  "zip": "18036",
+  "serviceArea": [
+    "Coopersburg",
+    "Center Valley",
+    "Saucon Valley",
+    "Allentown",
+    "Bethlehem",
+    "Easton",
+    "Hellertown",
+    "Emmaus",
+    "Nazareth",
+    "Quakertown",
+    "Perkasie",
+    "Amity",
+    "Shelly",
+    "Wydnor",
+    "Limeport",
+    "Zionhill",
+    "Geryville",
+    "Vera Cruz",
+    "Spinnerstown"
+  ],
+  "hours": "[[PLACEHOLDER: hours; Google currently lists 8 AM to 7 PM daily, appointment required]]",
+  "payments": [
+    "Checks",
+    "Debit cards",
+    "American Express",
+    "Discover",
+    "Mastercard",
+    "Visa"
+  ],
+  "pickupWindows": [
+    "9 to 11 AM",
+    "4 to 6 PM"
+  ],
+  "deliveryNote": "[[PLACEHOLDER: delivery distance and fees]]",
+  "fondantNote": "[[PLACEHOLDER: confirm whether fondant is decorations/toppers only or full fondant-covered cakes]]",
+  "leadTime": "[[PLACEHOLDER: how far ahead to order custom cakes]]",
+  "paymentTerms": "[[PLACEHOLDER: deposit vs. full payment, and when it's due]]",
+  "replyTime": "[[PLACEHOLDER: reply time]]",
+  "google": {
+    "rating": 5,
+    "count": 18,
+    "reviewsUrl": "[[PLACEHOLDER: Google reviews link]]",
+    "writeReviewUrl": "[[PLACEHOLDER: Google write-a-review link]]",
+    "profileUrl": "[[PLACEHOLDER: Google Business Profile URL]]"
+  },
+  "social": {
+    "facebook": "https://www.facebook.com/lauramysweets",
+    "instagram": "https://www.instagram.com/lauramysweets"
+  }
+}

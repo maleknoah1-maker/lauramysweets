@@ -1,0 +1,29 @@
+{%- import "partials/icons.njk" as i -%}
+{%- set s = settings -%}
+<section class="section" aria-labelledby="how-title">
+  {% sprinkles "how-" + page.url, 8 %}
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="script-label">Simple from start to finish</span>
+      <h2 id="how-title">How ordering <em>works.</em></h2>
+    </div>
+    <ol class="steps">
+      <li class="reveal">
+        <span class="step-num" aria-hidden="true">1</span>
+        <h3>Tell Laura about your event</h3>
+        <p>Send a custom order request with your date, servings and design ideas, or text or call {{ s.phone }}. Inspiration photos are welcome by text.</p>
+      </li>
+      <li class="reveal">
+        <span class="step-num" aria-hidden="true">2</span>
+        <h3>Get your design and price</h3>
+        <p>Laura replies within {{ s.replyTime | ph | safe }} to talk through flavors, design and price. {{ s.paymentTerms | ph | safe }}</p>
+      </li>
+      <li class="reveal">
+        <span class="step-num" aria-hidden="true">3</span>
+        <h3>Pick up or have it delivered</h3>
+        <p>Pick up in {{ s.city }}, or choose delivery. {{ s.deliveryNote | ph | safe }}</p>
+      </li>
+    </ol>
+    <p class="center-cta"><a class="btn btn-primary" href="/order/">Start a custom order {{ i.icon("arrow", 18) }}</a></p>
+  </div>
+</section>

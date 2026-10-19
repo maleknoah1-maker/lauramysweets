@@ -1,0 +1,8 @@
+[
+  { "from": "/general-5/", "to": "/classes/" },
+  { "from": "/order-now/", "to": "/quick-order/" },
+  { "from": "/holiday-specials/", "to": "/holiday/" },
+  { "from": "/special-event/", "to": "/wedding-cakes/" },
+  { "from": "/cupcakes-cakepops-1/", "to": "/cupcakes-cake-pops/" },
+  { "from": "/contact/", "to": "/order/" }
+]

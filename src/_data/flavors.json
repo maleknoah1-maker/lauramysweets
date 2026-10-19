@@ -1,0 +1,27 @@
+{
+  "cake": [
+    { "name": "Vanilla", "cupcakes": true },
+    { "name": "Chocolate", "cupcakes": true },
+    { "name": "Marble", "cupcakes": false },
+    { "name": "Lemon", "cupcakes": true },
+    { "name": "Carrot", "cupcakes": true },
+    { "name": "Red Velvet", "cupcakes": true },
+    { "name": "Funfetti", "cupcakes": true }
+  ],
+  "fillings": ["Strawberry", "Lemon", "Whipped Chocolate Ganache", "Whipped Cheesecake Filling", "Cookie Dough"],
+  "buttercreamFillings": ["Chocolate", "Strawberry", "Raspberry", "Peanut Butter", "Nutella", "Dulce de Leche", "Oreo", "Vanilla"],
+  "rules": [
+    "Single-tier cakes get 1 cake flavor and 1 filling.",
+    "Cupcakes have no filling unless requested.",
+    "All cakes are vanilla buttercream on the outside."
+  ],
+  "shooters": [
+    "Strawberry Cheesecake",
+    "Chocolate Hazelnut",
+    "Banana Caramel Cream Pie",
+    "Chocolate Peanut Butter Crunch",
+    "Caramel Cheesecake Brownie",
+    "Chocolate Chip Cannoli",
+    "Lemon Meringue Pie"
+  ]
+}

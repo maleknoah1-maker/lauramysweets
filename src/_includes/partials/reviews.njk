@@ -1,0 +1,34 @@
+{%- set g = settings.google -%}
+{%- set featuredReviews = reviews | selectattr("featured") -%}
+{%- set shown = featuredReviews if featuredReviews | length else reviews -%}
+<section class="section reviews-band" aria-labelledby="reviews-title">
+  {% sprinkles "rev-" + page.url, 6 %}
+  <div class="wrap">
+    <div class="reviews-summary reveal">
+      <span class="script-label">Kind words</span>
+      <h2 id="reviews-title">Loved by Lehigh Valley <em>families.</em></h2>
+      <span class="big">{{ g.rating | rating }}</span>
+      <span class="stars" aria-hidden="true">★★★★★</span>
+      <p>{{ g.rating | rating }} out of 5 on Google from {{ g.count }} reviews</p>
+      {%- if g.reviewsUrl | isPlaceholder %}
+      <p>{{ g.reviewsUrl | ph | safe }}</p>
+      {%- else %}
+      <a class="btn btn-outline" href="{{ g.reviewsUrl }}" rel="noopener">Read the reviews on Google</a>
+      {%- endif %}
+    </div>
+
+    {%- if shown | length %}
+    <div class="review-list">
+      {%- for r in shown | batch(3) | first %}
+      <figure class="review reveal">
+        <span class="stars" aria-label="{{ r.stars }} out of 5 stars">{% for n in range(0, r.stars) %}★{% endfor %}</span>
+        <blockquote><p>{{ r.text }}</p></blockquote>
+        <figcaption>{{ r.name }}<span class="sr-only">, Google review</span>{% if r.date %} &middot; <time>{{ r.date }}</time>{% endif %}</figcaption>
+      </figure>
+      {%- endfor %}
+    </div>
+    {%- else %}
+    <p style="text-align:center;margin-top:24px"><mark class="ph">[[PLACEHOLDER: real Google reviews, pasted word for word]]</mark></p>
+    {%- endif %}
+  </div>
+</section>

@@ -1,0 +1,373 @@
+# Pages CMS dashboard for Laura, My Sweets (https://pagescms.org/docs/configuration/)
+# Each dashboard section edits one whole file, and every key in that file is defined here,
+# so saving never drops a value. Saving commits to main and the site rebuilds in about a minute.
+
+media:
+  input: src/images/originals
+  output: /images/originals
+  extensions: [jpg, jpeg, png, webp]
+
+settings:
+  commit:
+    identity: user
+
+components:
+  price:
+    type: number
+    required: true
+    options:
+      min: 0
+  photo:
+    type: image
+    options:
+      extensions: [jpg, jpeg, png, webp]
+      rename: safe
+  altText:
+    type: string
+    pattern:
+      regex: "^.{15,}$"
+      message: "Describe what the photo shows in a short sentence (at least 15 characters)."
+
+content:
+  # ---------------------------------------------------------------- Business info
+  - name: business
+    label: Business info
+    type: group
+    items:
+      - name: settings
+        label: Contact & details
+        type: file
+        path: src/_data/settings.json
+        format: json
+        fields:
+          - { name: name, label: Business name, type: string, required: true, description: "Always with the comma: Laura, My Sweets" }
+          - { name: owner, label: Owner, type: string, required: true }
+          - { name: since, label: Year started, type: number, required: true, options: { min: 1990, max: 2100 } }
+          - { name: phone, label: Phone number, type: string, required: true, description: "Written like (484) 293-1329. The call and text buttons use this number.", pattern: { regex: "^\\(\\d{3}\\) \\d{3}-\\d{4}$", message: "Use this format: (484) 293-1329" } }
+          - { name: email, label: Email, type: string, required: true, pattern: { regex: "^[^@\\s]+@[^@\\s]+\\.[^@\\s]+$", message: "Enter an email address." } }
+          - { name: city, label: Town shown on the site, type: string, required: true, description: "Never add the street address." }
+          - { name: region, label: State, type: string, required: true }
+          - { name: zip, label: ZIP code, type: string, required: true }
+          - { name: serviceArea, label: Towns you serve, type: string, list: true, required: true, description: "One town per line. Keep this the same as your Google profile." }
+          - { name: hours, label: Hours, type: string, required: true }
+          - { name: payments, label: Payment methods, type: string, list: true, required: true }
+          - { name: pickupWindows, label: Quick Order pickup windows, type: string, list: true, required: true, description: "For example: 9 to 11 AM" }
+          - { name: deliveryNote, label: Delivery details, type: text, required: true, description: "How far you deliver and what it costs." }
+          - { name: fondantNote, label: Fondant details, type: text, required: true }
+          - { name: leadTime, label: How far ahead to order custom cakes, type: text, required: true }
+          - { name: paymentTerms, label: Custom order payment terms, type: text, required: true, description: "Deposit or full payment, and when it's due." }
+          - { name: replyTime, label: How quickly you reply, type: string, required: true, description: "Finishes the sentence: Laura will reply within ..." }
+          - name: google
+            label: Google reviews
+            type: object
+            fields:
+              - { name: rating, label: Star rating on Google, type: number, required: true, options: { min: 1, max: 5 } }
+              - { name: count, label: Number of Google reviews, type: number, required: true, options: { min: 0 }, description: "Update this when you get new reviews." }
+              - { name: reviewsUrl, label: Link to your Google reviews, type: string, required: true }
+              - { name: writeReviewUrl, label: Link for customers to leave a review, type: string, required: true }
+              - { name: profileUrl, label: Link to your Google Business Profile, type: string, required: true }
+          - name: social
+            label: Social media
+            type: object
+            fields:
+              - { name: facebook, label: Facebook page link, type: string, required: true }
+              - { name: instagram, label: Instagram link, type: string, required: true }
+
+      - name: booking
+        label: Dates you're not taking orders
+        type: file
+        path: src/_data/booking.json
+        format: json
+        fields:
+          - name: blockouts
+            label: Blocked dates
+            description: "Customers can't pick these dates on the order forms. For one day, use the same start and end date."
+            type: object
+            list:
+              collapsible: { collapsed: true, summary: "{start} to {end} {note}" }
+            fields:
+              - { name: start, label: First day, type: date, required: true, options: { format: "yyyy-MM-dd" } }
+              - { name: end, label: Last day, type: date, required: true, options: { format: "yyyy-MM-dd" } }
+              - { name: note, label: Reason (shown to customers), type: string, description: "Optional, for example: Christmas" }
+
+  # ---------------------------------------------------------------- Prices & menu
+  - name: menu
+    label: Prices & menu
+    type: file
+    path: src/_data/menu.json
+    format: json
+    fields:
+      - name: cakes
+        label: Cakes
+        type: object
+        fields:
+          - name: items
+            label: Cake sizes
+            type: object
+            list: { collapsible: { collapsed: true, summary: "{name}: ${price}" } }
+            fields:
+              - { name: name, label: Size name, type: string, required: true, description: "For example: 6 inch cake" }
+              - { name: serves, label: How many it serves, type: number, required: true, options: { min: 1 } }
+              - { name: price, label: Starting price (numbers only), component: price }
+              - { name: plus, label: Show a + after the price, type: boolean, description: "Turn on to show $55+ (price can go up with the design)." }
+          - { name: tieredNote, label: Tiered cake note, type: string, required: true }
+      - name: cupcakes
+        label: Cupcakes
+        type: object
+        fields:
+          - { name: minimum, label: Minimum order, type: string, required: true }
+          - name: items
+            label: Cupcake options
+            type: object
+            list: { collapsible: { collapsed: true, summary: "{name}" } }
+            fields:
+              - { name: name, label: Option name, type: string, required: true }
+              - { name: price, label: Price (numbers only), component: price }
+              - { name: priceMax, label: Highest price, type: number, description: "Only for price ranges like $0.75 to $6. Leave empty otherwise.", options: { min: 0 } }
+              - { name: unit, label: Priced per, type: select, required: true, options: { values: [{ name: dozen, label: Dozen }, { name: each, label: Each }] } }
+              - { name: from, label: Show "From" before the price, type: boolean }
+      - name: cakePops
+        label: Cake pops
+        type: object
+        fields:
+          - { name: minimum, label: Minimum order, type: string, required: true }
+          - { name: note, label: Note, type: string }
+          - name: items
+            label: Cake pop options
+            type: object
+            list: { collapsible: { collapsed: true, summary: "{name}: ${price}" } }
+            fields:
+              - { name: name, label: Option name, type: string, required: true }
+              - { name: price, label: Price (numbers only), component: price }
+              - { name: unit, label: Priced per, type: select, required: true, options: { values: [{ name: dozen, label: Dozen }, { name: each, label: Each }] } }
+              - { name: from, label: Show "From" before the price, type: boolean }
+      - name: other
+        label: Other treats
+        type: object
+        fields:
+          - name: items
+            label: Treats
+            type: object
+            list: { collapsible: { collapsed: true, summary: "{name}: ${price}" } }
+            fields:
+              - { name: name, label: Treat name, type: string, required: true }
+              - { name: price, label: Price (numbers only), component: price }
+              - { name: unit, label: Priced per, type: select, required: true, options: { values: [{ name: dozen, label: Dozen }, { name: each, label: Each }] } }
+              - { name: from, label: Show "From" before the price, type: boolean }
+              - { name: note, label: Note, type: string, description: "For example: Minimum 2 dozen per flavor" }
+
+  # ---------------------------------------------------------------- Flavors
+  - name: flavors
+    label: Flavors
+    type: file
+    path: src/_data/flavors.json
+    format: json
+    fields:
+      - name: cake
+        label: Cake flavors
+        description: "These show up on the menu and in the order form dropdowns."
+        type: object
+        list: { collapsible: { collapsed: true, summary: "{name}" } }
+        fields:
+          - { name: name, label: Flavor, type: string, required: true }
+          - { name: cupcakes, label: Available for cupcakes too, type: boolean }
+      - { name: fillings, label: Fillings, type: string, list: true, required: true }
+      - { name: buttercreamFillings, label: Flavored buttercream fillings, type: string, list: true, required: true }
+      - { name: rules, label: Flavor rules, type: string, list: true, description: "Short sentences shown on the menu." }
+      - { name: shooters, label: Dessert shooter flavors, type: string, list: true }
+
+  # ---------------------------------------------------------------- Quick Order
+  - name: quickOrder
+    label: Quick Order cakes
+    type: file
+    path: src/_data/quickOrder.json
+    format: json
+    fields:
+      - { name: noticeDays, label: Days of notice needed, type: number, required: true, options: { min: 1, max: 30 }, description: "The order deadlines table and the date picker both update from this." }
+      - { name: cutoffTime, label: Order cutoff time (24-hour), type: string, required: true, description: "For example 11:00 for 11 AM.", pattern: { regex: "^([01]\\d|2[0-3]):[0-5]\\d$", message: "Use 24-hour time, like 11:00." } }
+      - name: sizes
+        label: Sizes
+        type: object
+        list: { min: 2, max: 2, collapsible: { collapsed: true, summary: "{label}, serves {serves}" } }
+        fields:
+          - { name: key, label: Size number, type: string, required: true, readonly: true }
+          - { name: label, label: Size name, type: string, required: true }
+          - { name: serves, label: Serves, type: number, required: true, options: { min: 1 } }
+      - { name: rules, label: Rules shown to customers, type: string, list: true }
+      - name: topper
+        label: Birthday topper add-on
+        type: object
+        fields:
+          - { name: name, label: Name, type: string, required: true }
+          - { name: price, label: Price (numbers only), component: price }
+      - name: designs
+        label: Designs
+        type: object
+        list: { collapsible: { collapsed: true, summary: "{name}" } }
+        fields:
+          - { name: name, label: Design name, type: string, required: true }
+          - { name: available, label: Available to order, type: boolean, description: "Turn off to hide this design without deleting it." }
+          - { name: description, label: Description, type: text, required: true }
+          - { name: price6, label: Price for the 6 inch size (numbers only), component: price }
+          - { name: price8, label: Price for the 8 inch size (numbers only), component: price }
+          - { name: photo, label: Photo, component: photo }
+          - { name: alt, label: Describe the photo, component: altText, description: "For people who can't see the photo, and for Google." }
+          - { name: flavorChoice, label: Cake flavors customers can pick, type: select, options: { multiple: true, values: [Vanilla, Chocolate] }, description: "Leave empty if the flavor is fixed." }
+          - { name: fillingChoice, label: Customers pick a filling, type: boolean }
+          - { name: accentColors, label: Accent colors customers can change, type: number, required: true, options: { min: 0, max: 4 } }
+
+  # ---------------------------------------------------------------- Holiday & seasonal
+  - name: seasonal
+    label: Holiday & seasonal pages
+    type: collection
+    path: src/seasonal
+    format: yaml-frontmatter
+    filename: "{fields.slug}.md"
+    exclude: [seasonal.11tydata.js]
+    operations: { delete: false, rename: false }
+    view:
+      fields: [title, status]
+    fields:
+      - { name: title, label: Holiday name, type: string, required: true, description: "For example: Christmas" }
+      - { name: slug, label: Web address, type: string, required: true, description: "Lowercase, dashes instead of spaces. The page lives at /holiday/your-text/. Don't change it after the page is live.", pattern: { regex: "^[a-z0-9]+(-[a-z0-9]+)*$", message: "Lowercase letters, numbers and dashes only, like valentines-day" } }
+      - name: status
+        label: Status
+        type: select
+        required: true
+        default: off-season
+        description: "On: shows in the menu and on the homepage. Off-season: the page stays up with a waitlist."
+        options:
+          values:
+            - { name: "on", label: "On: taking pre-orders" }
+            - { name: off-season, label: "Off-season: show waitlist" }
+      - name: accent
+        label: Accent color
+        type: select
+        required: true
+        default: autumn
+        options:
+          values:
+            - { name: autumn, label: Autumn (pumpkin) }
+            - { name: winter, label: Winter (cranberry) }
+            - { name: spring, label: Spring (sage) }
+            - { name: summer, label: Summer (golden) }
+      - { name: intro, label: Intro, type: text, required: true }
+      - { name: deadline, label: Pre-order deadline, type: date, default: "", options: { format: "yyyy-MM-dd" } }
+      - { name: pickupDates, label: Pickup dates, type: string, description: "For example: Tuesday, November 24 or Wednesday, November 25" }
+      - name: items
+        label: Treats
+        type: object
+        list: { collapsible: { collapsed: true, summary: "{name}" } }
+        fields:
+          - { name: name, label: Name, type: string, required: true }
+          - { name: description, label: Description, type: text }
+          - { name: price, label: Price (numbers only), type: number, options: { min: 0 } }
+          - { name: photo, label: Photo, component: photo }
+          - { name: alt, label: Describe the photo, component: altText }
+
+  # ---------------------------------------------------------------- Classes & camp
+  - name: classes
+    label: Classes & camp
+    type: file
+    path: src/_data/classes.json
+    format: json
+    fields:
+      - { name: "on", label: Classes are open for sign-up, type: boolean, description: "Off: the page stays up with a 'get notified' form." }
+      - { name: description, label: Description, type: text, required: true }
+      - { name: ages, label: Ages, type: string, required: true }
+      - { name: classSize, label: Class size, type: string, required: true }
+      - { name: location, label: Location note, type: string, required: true }
+      - { name: price, label: Price, type: string, required: true, description: "For example: $45 per child" }
+      - name: sessions
+        label: Sessions
+        type: object
+        list: { collapsible: { collapsed: true, summary: "{title} ({date})" } }
+        fields:
+          - { name: title, label: Session name, type: string, required: true }
+          - { name: date, label: Date, type: date, required: true, options: { format: "yyyy-MM-dd" } }
+          - { name: endDate, label: End date (for camps), type: date, default: "", options: { format: "yyyy-MM-dd" } }
+          - { name: time, label: Time, type: string, description: "For example: 10 AM to noon" }
+          - { name: spots, label: Spots left, type: number, options: { min: 0 } }
+          - name: status
+            label: Sign-up status
+            type: select
+            required: true
+            default: open
+            options:
+              values:
+                - { name: open, label: Open }
+                - { name: waitlist, label: Waitlist }
+                - { name: full, label: Full }
+
+  # ---------------------------------------------------------------- Gallery
+  - name: gallery
+    label: Gallery
+    type: file
+    path: src/_data/gallery.json
+    format: json
+    list: true
+    fields:
+      - { name: image, label: Photo, component: photo, required: true }
+      - { name: alt, label: Describe what the photo shows, component: altText, required: true, description: "For example: Two-tier pink buttercream cake with gold sprinkles" }
+      - name: category
+        label: Category
+        type: select
+        required: true
+        options:
+          values: [Birthday, "First Birthday & Smash", "Wedding & Events", "Cupcakes & Cake Pops", Holiday]
+      - { name: featured, label: Show on the homepage, type: boolean }
+
+  # ---------------------------------------------------------------- Reviews
+  - name: reviews
+    label: Reviews
+    type: file
+    path: src/_data/reviews.json
+    format: json
+    list: true
+    fields:
+      - { name: name, label: First name, type: string, required: true }
+      - { name: date, label: Review date, type: date, required: true, options: { format: "yyyy-MM-dd" } }
+      - { name: stars, label: Stars, type: number, required: true, options: { min: 1, max: 5 } }
+      - { name: text, label: Review text (copied exactly from Google), type: text, required: true }
+      - { name: featured, label: Feature this review, type: boolean }
+
+  # ---------------------------------------------------------------- FAQs
+  - name: faqs
+    label: FAQs
+    type: file
+    path: src/_data/faqs.json
+    format: json
+    list: true
+    fields:
+      - { name: q, label: Question, type: string, required: true }
+      - { name: a, label: Answer, type: text, required: true }
+      - name: pages
+        label: Show on these pages
+        type: select
+        options:
+          multiple: true
+          values:
+            - { name: home, label: Homepage }
+            - { name: faq, label: FAQ page }
+            - { name: birthday-cakes, label: Birthday cakes }
+            - { name: smash-cakes, label: Smash cakes }
+            - { name: wedding-cakes, label: Wedding cakes }
+            - { name: cupcakes-cake-pops, label: Cupcakes & cake pops }
+            - { name: quick-order, label: Quick Order }
+            - { name: menu, label: Menu }
+            - { name: order, label: Order form }
+            - { name: classes, label: Classes }
+            - { name: about, label: About }
+            - { name: policies, label: Policies }
+
+  # ---------------------------------------------------------------- Banner
+  - name: banner
+    label: Announcement banner
+    type: file
+    path: src/_data/banner.json
+    format: json
+    fields:
+      - { name: "on", label: Show the banner, type: boolean }
+      - { name: text, label: Message, type: string, required: true, description: "Keep it short, for example: Thanksgiving pre-orders open soon." }
+      - { name: linkText, label: Link text, type: string, description: "For example: Join the list" }
+      - { name: link, label: Link goes to, type: string, description: "A page on your site, like /holiday/thanksgiving/", pattern: { regex: "^(/.*|https?://.+)?$", message: "Start with / for a page on your site." } }

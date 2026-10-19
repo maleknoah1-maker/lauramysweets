@@ -1,0 +1,27 @@
+{
+  "main": [
+    {
+      "label": "Custom Cakes",
+      "children": [
+        { "label": "Birthday cakes", "url": "/birthday-cakes/" },
+        { "label": "First birthday & smash cakes", "url": "/smash-cakes/" },
+        { "label": "Wedding & event cakes", "url": "/wedding-cakes/" },
+        { "label": "Cupcakes & cake pops", "url": "/cupcakes-cake-pops/" },
+        { "label": "Menu & prices", "url": "/menu/" }
+      ]
+    },
+    { "label": "Quick Order", "url": "/quick-order/" },
+    { "label": "Gallery", "url": "/gallery/" },
+    { "label": "Classes", "url": "/classes/" },
+    { "label": "Holiday", "url": "/holiday/" },
+    { "label": "About", "url": "/about/" }
+  ],
+  "galleryCategories": ["Birthday", "First Birthday & Smash", "Wedding & Events", "Cupcakes & Cake Pops", "Holiday"],
+  "categories": [
+    { "label": "Birthday", "url": "/birthday-cakes/" },
+    { "label": "First Birthday & Smash", "url": "/smash-cakes/" },
+    { "label": "Wedding", "url": "/wedding-cakes/" },
+    { "label": "Cupcakes & Cake Pops", "url": "/cupcakes-cake-pops/" },
+    { "label": "Holiday", "url": "/holiday/" }
+  ]
+}

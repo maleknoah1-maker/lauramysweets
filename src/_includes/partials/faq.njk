@@ -1,0 +1,19 @@
+{# Expects: faqItems, faqTitle (optional) #}
+<section class="section" aria-labelledby="faq-title">
+  {% sprinkles "faq-" + page.url, 8 %}
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="script-label">Good to know</span>
+      <h2 id="faq-title">{% if faqTitle %}{{ faqTitle | safe }}{% else %}Questions, <em>answered.</em>{% endif %}</h2>
+    </div>
+    <div class="faq-list">
+      {%- for f in faqItems %}
+      <details class="reveal">
+        <summary>{{ f.q }}</summary>
+        <div><p>{{ f.a | ph | safe }}</p></div>
+      </details>
+      {%- endfor %}
+    </div>
+    <p class="center-cta"><a class="btn btn-outline" href="/faq/">See every question</a></p>
+  </div>
+</section>

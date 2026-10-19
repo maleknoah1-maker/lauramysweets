@@ -1,0 +1,11 @@
+{%- import "partials/icons.njk" as i -%}
+{%- set b = banner -%}
+{%- if b.on and b.text %}
+<div class="announce" data-announce="{{ b.text }}" role="region" aria-label="Announcement">
+  <span>{{ b.text }}</span>
+  {%- if b.link and b.linkText %}
+  <a href="{{ b.link }}">{{ b.linkText }}</a>
+  {%- endif %}
+  <button class="announce-close" type="button" aria-label="Dismiss announcement">{{ i.icon("close", 18) }}</button>
+</div>
+{%- endif %}

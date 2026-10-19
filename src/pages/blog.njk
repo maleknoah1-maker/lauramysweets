@@ -1,0 +1,29 @@
+---
+layout: layouts/page.njk
+permalink: /blog/
+key: blog
+title: "Cake Guides & Tips | Laura, My Sweets"
+label: Helpful reading
+heading: "Cake <em>guides.</em>"
+description: "Guides from Laura, My Sweets in Coopersburg, PA: when to order a custom cake, cake sizes and servings, smash cakes, and buttercream vs. fondant."
+lede: "Helpful answers for planning your cake, from sizes and servings to buttercream and fondant."
+related: [faq, menu, order]
+---
+{%- import "partials/icons.njk" as i -%}
+<section class="section" style="padding-top:0">
+  <div class="wrap">
+    <h2 class="sr-only">All guides</h2>
+    <div class="post-list">
+      {%- for post in collections.posts | reverse %}
+      <a class="card reveal" href="{{ post.url }}">
+        <div class="card-body">
+          <span class="script-label" style="font-size:1.4rem">Cake guide</span>
+          <h3>{{ post.data.headline }}</h3>
+          <p>{{ post.data.lede }}</p>
+          <span class="card-more">Read the guide {{ i.icon("arrow", 16) }}</span>
+        </div>
+      </a>
+      {%- endfor %}
+    </div>
+  </div>
+</section>

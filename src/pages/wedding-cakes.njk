@@ -1,0 +1,33 @@
+---
+layout: layouts/service.njk
+permalink: /wedding-cakes/
+key: wedding-cakes
+title: "Wedding Cakes in the Lehigh Valley | Laura, My Sweets"
+label: Weddings, showers and special events
+heading: "Wedding &amp; event cakes, <em>made to order.</em>"
+galleryCategory: "Wedding & Events"
+galleryLabel: Weddings and events
+galleryHeading: "Recent wedding <em>&amp; event cakes.</em>"
+related: [cupcakes-cake-pops, menu, faq]
+description: "Tiered wedding cakes, bridal shower cakes and dessert tables from a licensed home bakery in Coopersburg, PA, serving Bethlehem, Allentown, Easton and the Lehigh Valley."
+lede: "Tiered wedding cakes, bridal shower and special event cakes, and dessert table treats, designed around your day."
+---
+{%- import "partials/prices.njk" as prices -%}
+<section class="section" style="padding-top:0">
+  <div class="wrap split">
+    <div class="prose reveal" style="margin:0">
+      <h2 style="margin-top:0">Cakes for <em>the big day.</em></h2>
+      <p>Laura makes wedding cakes, bridal shower cakes and cakes for anniversaries, graduations and other special events. Tiered cakes are sized to your guest count and priced by quote, so the best first step is to tell Laura your date, guest count and the look you have in mind.</p>
+      <p>For a dessert table, pair your cake with cupcakes, cake pops, dessert shooters and chocolate-dipped pretzels. Couples and hosts order from Bethlehem, Allentown, Easton, Nazareth, Saucon Valley and across the Lehigh Valley.</p>
+      <h3>Delivery</h3>
+      <p>{{ settings.deliveryNote | ph | safe }}</p>
+      <h3>Booking ahead</h3>
+      <p>{{ settings.leadTime | ph | safe }}</p>
+    </div>
+    <div class="price-grid" style="grid-template-columns:1fr">
+      {{ prices.cakes(menu) }}
+      {{ prices.other(menu) }}
+      <p><a class="btn btn-outline" href="/menu/">Full menu and prices</a></p>
+    </div>
+  </div>
+</section>

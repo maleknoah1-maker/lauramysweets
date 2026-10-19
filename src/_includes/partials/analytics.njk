@@ -1,0 +1,23 @@
+{#- GA4. Laura's own visits: open any page once with ?notrack=1 to turn analytics off on that
+    device, or ?notrack=0 to turn it back on. Works even before the GA4 ID is added. -#}
+{%- set gaId = "" if (site.ga4 | isPlaceholder) else site.ga4 -%}
+<script>
+(function () {
+  var id = "{{ gaId }}", off = false;
+  try {
+    var q = new URLSearchParams(location.search).get("notrack");
+    if (q === "1") localStorage.setItem("lms-notrack", "1");
+    if (q === "0") localStorage.removeItem("lms-notrack");
+    off = localStorage.getItem("lms-notrack") === "1";
+  } catch (e) {}
+  if (off || !id) return;
+  window.dataLayer = window.dataLayer || [];
+  window.gtag = function () { dataLayer.push(arguments); };
+  gtag("js", new Date());
+  gtag("config", id);
+  var s = document.createElement("script");
+  s.async = true;
+  s.src = "https://www.googletagmanager.com/gtag/js?id=" + id;
+  document.head.appendChild(s);
+})();
+</script>

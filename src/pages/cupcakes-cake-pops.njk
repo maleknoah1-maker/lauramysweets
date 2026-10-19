@@ -1,0 +1,37 @@
+---
+layout: layouts/service.njk
+permalink: /cupcakes-cake-pops/
+key: cupcakes-cake-pops
+title: "Cupcakes & Cake Pops in Allentown, PA | Laura, My Sweets"
+label: Cupcakes, cake pops and more
+heading: "Cupcakes &amp; <em>cake pops.</em>"
+galleryCategory: "Cupcakes & Cake Pops"
+galleryLabel: Small treats
+galleryHeading: "Cupcakes, pops <em>and more.</em>"
+related: [birthday-cakes, wedding-cakes, menu]
+eleventyComputed:
+  description: "Custom cupcakes from {{ computed.cupcakeFrom | money }} a dozen and cake pops from {{ computed.cakePopFrom | money }} a dozen, baked to order in Coopersburg for Allentown, Bethlehem and the Lehigh Valley."
+  lede: "Cupcakes from {{ computed.cupcakeFrom | money }} a dozen, cake pops from {{ computed.cakePopFrom | money }} a dozen, plus dessert shooters and chocolate-dipped pretzels."
+---
+{%- import "partials/prices.njk" as prices -%}
+<section class="section" style="padding-top:0">
+  <div class="wrap">
+    <div class="prose reveal" style="text-align:center;margin-bottom:32px">
+      <p>Cupcakes, cake pops, dessert shooters and chocolate-dipped pretzels are perfect for parties, showers and dessert tables. Everything is made to order in {{ settings.city }}, with pickup or delivery for Allentown, Bethlehem, Emmaus, Hellertown, Quakertown and nearby towns.</p>
+    </div>
+    <h2 class="sr-only">Prices and flavors</h2>
+    <div class="price-grid">
+      {{ prices.cupcakes(menu) }}
+      {{ prices.cakePops(menu) }}
+      {{ prices.other(menu) }}
+      <div class="price-card reveal">
+        <h3>Flavors</h3>
+        <h4 class="list-head">Cupcake flavors</h4>
+        {{ prices.flavorList(flavors.cake | selectattr("cupcakes"), "name") }}
+        <h4 class="list-head">Dessert shooter flavors</h4>
+        {{ prices.flavorList(flavors.shooters) }}
+        <p class="price-note">Cupcakes have no filling unless requested.</p>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,131 @@
+---
+layout: layouts/page.njk
+permalink: /order/
+key: order
+title: "Custom Cake Order Request | Laura, My Sweets, Coopersburg PA"
+label: Let's plan your cake
+heading: "Request a <em>custom order.</em>"
+description: "Request a custom cake, cupcakes, cake pops or dessert table from Laura, My Sweets in Coopersburg, PA. Pickup or delivery across the Lehigh Valley."
+lede: "Tell Laura about your event and what you have in mind. She'll get back to you with ideas and a price."
+related: [quick-order, menu, faq]
+scripts: [forms]
+hideCta: true
+---
+{%- import "partials/form.njk" as f -%}
+{%- import "partials/icons.njk" as i -%}
+{%- set s = settings -%}
+<script type="application/json" id="booking-data">{{ booking | dump | safe }}</script>
+
+<section class="section" style="padding-top:0">
+  <div class="wrap split">
+    <div class="panel-white reveal" id="order-form">
+      {{ f.open("Custom order", site.formspree.order) }}
+        <fieldset>
+          <legend>About you</legend>
+          {{ f.contact() }}
+        </fieldset>
+
+        <fieldset>
+          <legend>Your event</legend>
+          <div class="form-row two">
+            {{ f.input("event_date", "Event date", "date", true) }}
+            <div class="field">
+              <label for="f-event_type">Event type</label>
+              <select id="f-event_type" name="event_type" required>
+                <option value="">Choose one</option>
+                {%- for t in ["Birthday", "First birthday / smash cake", "Wedding", "Bridal or baby shower", "Graduation", "Holiday", "Other"] %}
+                <option>{{ t }}</option>
+                {%- endfor %}
+              </select>
+            </div>
+          </div>
+          <div class="field">
+            <span class="label" id="fulfil-label">Pickup or delivery?</span>
+            <div class="choices" role="radiogroup" aria-labelledby="fulfil-label">
+              <label class="choice"><input type="radio" name="fulfillment" value="Pickup" required checked><span>Pickup in {{ s.city }}</span></label>
+              <label class="choice"><input type="radio" name="fulfillment" value="Delivery"><span>Delivery</span></label>
+            </div>
+          </div>
+          <div class="form-row two" data-show-when="fulfillment=Delivery" hidden>
+            <div class="field">
+              <label for="f-delivery_address">Delivery address</label>
+              <input id="f-delivery_address" name="delivery_address" type="text" autocomplete="street-address" data-required-when-shown>
+            </div>
+            <div class="field">
+              <label for="f-delivery_town">Town</label>
+              <select id="f-delivery_town" name="delivery_town" data-required-when-shown>
+                <option value="">Choose a town</option>
+                {%- for t in s.serviceArea %}<option>{{ t }}</option>{% endfor %}
+                <option>Other (tell us below)</option>
+              </select>
+            </div>
+          </div>
+          <p class="hint" data-show-when="fulfillment=Delivery" hidden>{{ s.deliveryNote | ph | safe }}</p>
+        </fieldset>
+
+        <fieldset>
+          <legend>Your order</legend>
+          <div class="field" data-require-one="Please choose at least one.">
+            <span class="label" id="want-label">What would you like?</span>
+            <div class="choices" role="group" aria-labelledby="want-label">
+              {%- for w in ["Cake", "Tiered or wedding cake", "Cupcakes", "Cake pops", "Dessert shooters", "Chocolate-dipped pretzels"] %}
+              <label class="choice"><input type="checkbox" name="items" value="{{ w }}"><span>{{ w }}</span></label>
+              {%- endfor %}
+            </div>
+          </div>
+          {{ f.input("servings", "How many servings?", "number", false, "A 6 inch cake serves 12, 8 inch serves 20, 10 inch serves 30.", "", 'min="1" inputmode="numeric"') }}
+          <div class="form-row two">
+            <div class="field">
+              <label for="f-cake_flavor">Cake flavor <span class="hint">(optional)</span></label>
+              <select id="f-cake_flavor" name="cake_flavor">
+                <option value="">Not sure yet</option>
+                {%- for fl in flavors.cake %}<option>{{ fl.name }}{% if not fl.cupcakes %} (cakes only){% endif %}</option>{% endfor %}
+              </select>
+            </div>
+            <div class="field">
+              <label for="f-filling">Filling <span class="hint">(optional)</span></label>
+              <select id="f-filling" name="filling">
+                <option value="">Not sure yet</option>
+                <optgroup label="Fillings">{% for fl in flavors.fillings %}<option>{{ fl }}</option>{% endfor %}</optgroup>
+                <optgroup label="Flavored buttercream">{% for fl in flavors.buttercreamFillings %}<option>{{ fl }} buttercream</option>{% endfor %}</optgroup>
+              </select>
+            </div>
+          </div>
+          {{ f.textarea("design", "Describe your design", true, "Colors, theme, wording, and anything else Laura should know.") }}
+          <div class="notice notice-soft">
+            <p><strong>Inspiration photos:</strong> text them to <a href="sms:{{ computed.tel }}" data-track="text_click">{{ s.phone }}</a> with your name and event date.</p>
+          </div>
+        </fieldset>
+      {{ f.close("Send my request") }}
+    </div>
+
+    <aside class="reveal" style="display:grid;gap:20px">
+      <div class="price-card">
+        <h2 class="h3">Before you order</h2>
+        <ul class="facts" style="margin:0">
+          <li>{{ i.checkDot() }}<span><strong>Lead time:</strong> {{ s.leadTime | ph | safe }}</span></li>
+          <li>{{ i.checkDot() }}<span><strong>Payment:</strong> {{ s.paymentTerms | ph | safe }}</span></li>
+          <li>{{ i.checkDot() }}<span><strong>Reply:</strong> Laura will reply within {{ s.replyTime | ph | safe }}</span></li>
+          <li>{{ i.checkDot() }}<span><strong>Accepted:</strong> {{ s.payments | join(", ") }}</span></li>
+        </ul>
+      </div>
+      {%- if booking.blockouts | length %}
+      <div class="price-card">
+        <h2 class="h3">Unavailable dates</h2>
+        <ul>{% for b in booking.blockouts %}<li>{{ b.start }}{% if b.end and b.end != b.start %} to {{ b.end }}{% endif %}{% if b.note %} ({{ b.note }}){% endif %}</li>{% endfor %}</ul>
+      </div>
+      {%- endif %}
+      <div class="notice">
+        <p><strong>In a hurry?</strong> Quick Order cakes are ready with {{ quickOrder.noticeDays }} days' notice, from {{ computed.quickFrom | money }}.</p>
+        <p style="margin-top:10px"><a class="btn btn-primary" href="/quick-order/" data-track="quick_order_click">See Quick Order cakes</a></p>
+      </div>
+      <div class="price-card">
+        <h2 class="h3">Rather talk?</h2>
+        <p>Text or call <a href="tel:{{ computed.tel }}" data-track="phone_click">{{ s.phone }}</a>, or email <a href="mailto:{{ s.email }}">{{ s.email }}</a>.</p>
+      </div>
+    </aside>
+  </div>
+</section>
+
+{%- set faqItems = faqs | faqsFor("order") -%}
+{% include "partials/faq.njk" %}

@@ -1,0 +1,72 @@
+---
+layout: layouts/page.njk
+permalink: /menu/
+key: menu
+title: "Cake Prices & Menu, Lehigh Valley | Laura, My Sweets"
+label: Prices, flavors and fillings
+heading: "Menu &amp; <em>prices.</em>"
+related: [quick-order, birthday-cakes, order]
+eleventyComputed:
+  description: "Custom cake prices from Laura, My Sweets in Coopersburg, PA: cakes from {{ computed.cakeFrom | money }}, cupcakes from {{ computed.cupcakeFrom | money }} a dozen, cake pops from {{ computed.cakePopFrom | money }} a dozen. Flavors and fillings listed."
+  lede: "Every price, flavor and filling in one place. Cakes start at {{ computed.cakeFrom | money }}, and Quick Order cakes at {{ computed.quickFrom | money }}."
+---
+{%- import "partials/prices.njk" as prices -%}
+{%- import "partials/icons.njk" as i -%}
+<section class="section" style="padding-top:0" aria-labelledby="prices-title">
+  <div class="wrap">
+    <h2 id="prices-title" class="sr-only">Prices</h2>
+    <div class="price-grid">
+      {{ prices.cakes(menu) }}
+      {{ prices.cupcakes(menu) }}
+      {{ prices.cakePops(menu) }}
+      {{ prices.other(menu) }}
+    </div>
+  </div>
+</section>
+
+<section class="section qo-band" id="flavors" aria-labelledby="flavors-title">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="script-label">Mix and match</span>
+      <h2 id="flavors-title">Flavors &amp; <em>fillings.</em></h2>
+    </div>
+    <div class="price-grid">
+      {{ prices.flavors(flavors, "Cakes &amp; cupcakes", false, false) }}
+      <div class="price-card reveal">
+        <h3>Good to know</h3>
+        <ul class="facts" style="margin:0">
+          {%- for r in flavors.rules %}
+          <li>{{ i.checkDot() }}{{ r }}</li>
+          {%- endfor %}
+        </ul>
+        <h4 class="list-head" style="margin-top:24px">Dessert shooter flavors</h4>
+        {{ prices.flavorList(flavors.shooters) }}
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" aria-labelledby="qo-menu-title">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="script-label">Ready in {{ quickOrder.noticeDays }} days</span>
+      <h2 id="qo-menu-title">Quick Order <em>cakes.</em></h2>
+      <p>Set designs, made exactly as shown. Colors can be changed.</p>
+    </div>
+    <div class="price-card reveal" style="max-width:760px;margin:0 auto">
+      <dl class="price-list">
+        {%- for d in computed.quickAvailable %}
+        <div>
+          <dt>{{ d.name }}<span>{{ d.description }}</span></dt>
+          <dd>{{ d.price6 | money }} / {{ d.price8 | money }}</dd>
+        </div>
+        {%- endfor %}
+      </dl>
+      <p class="price-note">{% for sz in quickOrder.sizes %}{{ sz.label }} serves {{ sz.serves }}{% if not loop.last %}, {% endif %}{% endfor %}. {{ quickOrder.topper.name }}: {{ quickOrder.topper.price | money }}.</p>
+      <p style="margin:18px 0 0"><a class="btn btn-primary" href="/quick-order/" data-track="quick_order_click">Order a Quick Order cake {{ i.icon("arrow", 18) }}</a></p>
+    </div>
+  </div>
+</section>
+
+{%- set faqItems = faqs | faqsFor("menu") -%}
+{% include "partials/faq.njk" %}

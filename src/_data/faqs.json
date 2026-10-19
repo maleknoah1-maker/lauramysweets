@@ -1,0 +1,57 @@
+[
+  {
+    "q": "Do you have a storefront?",
+    "a": "No. Laura, My Sweets is a licensed and insured home bakery in Coopersburg, PA, and takes custom orders only. There's no walk-in shop. Request a custom order online, or text or call (484) 293-1329.",
+    "pages": ["home", "faq", "about"]
+  },
+  {
+    "q": "How far in advance should I order?",
+    "a": "For custom cakes: [[PLACEHOLDER: how far ahead to order custom cakes]]. Quick Order cakes need 5 full days' notice: order by 11 AM, 5 days before your pickup day.",
+    "pages": ["home", "faq", "birthday-cakes", "smash-cakes", "wedding-cakes", "quick-order", "order"]
+  },
+  {
+    "q": "How many people does each size serve?",
+    "a": "A 6 inch cake serves 12, an 8 inch cake serves 20 and a 10 inch cake serves 30. For bigger groups, tiered cakes are sized to your guest count.",
+    "pages": ["home", "faq", "birthday-cakes", "menu", "quick-order"]
+  },
+  {
+    "q": "What flavors and fillings do you offer?",
+    "a": "Cake flavors are Vanilla, Chocolate, Marble (cakes only), Lemon, Carrot, Red Velvet and Funfetti. Fillings include Strawberry, Lemon, Whipped Chocolate Ganache, Whipped Cheesecake Filling and Cookie Dough, or a flavored buttercream filling. Every cake is finished in vanilla buttercream on the outside. The full list is on the menu page.",
+    "pages": ["home", "faq", "menu", "birthday-cakes", "cupcakes-cake-pops"]
+  },
+  {
+    "q": "Do you deliver?",
+    "a": "Yes. Pickup in Coopersburg is also available. [[PLACEHOLDER: delivery distance and fees]]",
+    "pages": ["faq", "wedding-cakes", "order", "policies"]
+  },
+  {
+    "q": "Do you do fondant?",
+    "a": "Yes. [[PLACEHOLDER: confirm whether fondant is decorations/toppers only or full fondant-covered cakes]]",
+    "pages": ["faq", "birthday-cakes", "smash-cakes", "cupcakes-cake-pops"]
+  },
+  {
+    "q": "How do I pay?",
+    "a": "Laura accepts checks, debit cards and credit cards (American Express, Discover, Mastercard and Visa). Quick Order cakes are paid in full when ordered, by an invoice sent within 24 hours. For custom orders: [[PLACEHOLDER: deposit vs. full payment, and when it's due]]",
+    "pages": ["home", "faq", "order", "policies"]
+  },
+  {
+    "q": "Can you match an inspiration photo?",
+    "a": "Send it over. Text your inspiration photos to (484) 293-1329 or describe the design in the order form, and Laura will let you know what she can do. [[PLACEHOLDER: confirm wording on matching photos]]",
+    "pages": ["faq", "birthday-cakes", "smash-cakes", "wedding-cakes", "order"]
+  },
+  {
+    "q": "Do you make wedding cakes, tiered cakes or dessert tables?",
+    "a": "Yes. Laura makes wedding, bridal shower and special event cakes, tiered cakes, and cupcakes, cake pops, dessert shooters and chocolate-dipped pretzels for dessert tables. Tiered cakes are priced by size, so get in touch for a quote.",
+    "pages": ["home", "faq", "wedding-cakes", "cupcakes-cake-pops"]
+  },
+  {
+    "q": "Do you offer classes for kids?",
+    "a": "Laura has run kids' baking classes and a summer cooking camp. Check the classes page for upcoming dates, or join the list to hear about the next ones.",
+    "pages": ["faq", "classes", "about"]
+  },
+  {
+    "q": "Can you accommodate allergies or gluten-free requests?",
+    "a": "[[PLACEHOLDER: allergy, nut and gluten-free policy]]",
+    "pages": ["faq", "order", "policies"]
+  }
+]

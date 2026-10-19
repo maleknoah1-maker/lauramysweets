@@ -1,0 +1,87 @@
+{
+  "noticeDays": 5,
+  "cutoffTime": "11:00",
+  "sizes": [
+    { "key": "6", "label": "6 inch", "serves": 12 },
+    { "key": "8", "label": "8 inch", "serves": 20 }
+  ],
+  "rules": [
+    "Full payment is due at the time of order, or the order isn't valid. An invoice is sent within 24 hours.",
+    "Designs are made exactly as shown. Colors can be changed."
+  ],
+  "topper": { "name": "Happy Birthday topper", "price": 3 },
+  "designs": [
+    {
+      "name": "Textured Buttercream",
+      "description": "Vanilla or chocolate cake with strawberry fruit filling or any flavored buttercream filling. White background; up to 2 accent colors can change.",
+      "price6": 65,
+      "price8": 95,
+      "photo": "",
+      "alt": "",
+      "available": true,
+      "flavorChoice": ["Vanilla", "Chocolate"],
+      "fillingChoice": true,
+      "accentColors": 2
+    },
+    {
+      "name": "Oreo",
+      "description": "Chocolate cake, Oreo buttercream and Oreos on top.",
+      "price6": 60,
+      "price8": 85,
+      "photo": "",
+      "alt": "",
+      "available": true,
+      "flavorChoice": [],
+      "fillingChoice": false,
+      "accentColors": 0
+    },
+    {
+      "name": "Ombre Buttercream",
+      "description": "Vanilla or chocolate cake with strawberry fruit filling or any flavored buttercream filling. Your choice of ombre color.",
+      "price6": 60,
+      "price8": 85,
+      "photo": "",
+      "alt": "",
+      "available": true,
+      "flavorChoice": ["Vanilla", "Chocolate"],
+      "fillingChoice": true,
+      "accentColors": 1
+    },
+    {
+      "name": "Peanut Butter Cup",
+      "description": "Chocolate cake, peanut butter buttercream, chocolate ganache drip and peanut butter cups on top.",
+      "price6": 65,
+      "price8": 95,
+      "photo": "",
+      "alt": "",
+      "available": true,
+      "flavorChoice": [],
+      "fillingChoice": false,
+      "accentColors": 0
+    },
+    {
+      "name": "Vintage Buttercream",
+      "description": "Vanilla or chocolate cake with strawberry fruit filling or any flavored buttercream filling. White background; the accent color can change.",
+      "price6": 70,
+      "price8": 100,
+      "photo": "",
+      "alt": "",
+      "available": true,
+      "flavorChoice": ["Vanilla", "Chocolate"],
+      "fillingChoice": true,
+      "accentColors": 1
+    },
+    {
+      "name": "Classic Red Velvet",
+      "description": "Red velvet cake, vanilla buttercream and red velvet crumbs.",
+      "price6": 60,
+      "price8": 85,
+      "photo": "",
+      "alt": "",
+      "available": true,
+      "flavorChoice": [],
+      "fillingChoice": false,
+      "accentColors": 0
+    }
+  ]
+}

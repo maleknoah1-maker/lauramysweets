@@ -1,0 +1,32 @@
+{
+  "cakes": {
+    "items": [
+      { "name": "6 inch cake", "serves": 12, "price": 55, "plus": true },
+      { "name": "8 inch cake", "serves": 20, "price": 80, "plus": true },
+      { "name": "10 inch cake", "serves": 30, "price": 120, "plus": true }
+    ],
+    "tieredNote": "Tiered cakes: contact for sizing and pricing"
+  },
+  "cupcakes": {
+    "minimum": "Minimum 1 dozen per flavor",
+    "items": [
+      { "name": "Basic icing swirl or sprinkles", "price": 33, "unit": "dozen", "from": false },
+      { "name": "Buttercream designs", "price": 39, "unit": "dozen", "from": true },
+      { "name": "Custom fondant toppers", "price": 0.75, "priceMax": 6, "unit": "each", "from": false }
+    ]
+  },
+  "cakePops": {
+    "minimum": "Minimum 1 dozen per flavor",
+    "note": "Vanilla or chocolate, individually wrapped",
+    "items": [
+      { "name": "Basic round, any color or sprinkles", "price": 36, "unit": "dozen", "from": false },
+      { "name": "Specialty shapes and designs", "price": 42, "unit": "dozen", "from": true }
+    ]
+  },
+  "other": {
+    "items": [
+      { "name": "Dessert shooters", "price": 40, "unit": "dozen", "from": true, "note": "Minimum 2 dozen per flavor" },
+      { "name": "Chocolate-dipped pretzels", "price": 22, "unit": "dozen", "from": false, "note": "Individually wrapped" }
+    ]
+  }
+}

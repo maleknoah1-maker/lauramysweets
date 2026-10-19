@@ -1,0 +1,156 @@
+---
+layout: layouts/page.njk
+permalink: /quick-order/
+key: quick-order
+title: "Order a Cake in Coopersburg: Quick Order Cakes | Laura, My Sweets"
+label: Set designs, ready in 5 days
+heading: "Quick Order <em>cakes.</em>"
+related: [order, birthday-cakes, menu]
+scripts: [forms]
+hideCta: true
+eleventyComputed:
+  description: "Order a cake in Coopersburg, PA: six Quick Order designs in 6 or 8 inch sizes from {{ computed.quickFrom | money }}, ready for pickup with {{ quickOrder.noticeDays }} days' notice."
+  lede: "Six set designs in a 6 or 8 inch size, from {{ computed.quickFrom | money }}. Order with {{ quickOrder.noticeDays }} days' notice and pick up in Coopersburg."
+---
+{%- import "partials/form.njk" as f -%}
+{%- import "partials/icons.njk" as i -%}
+{%- set s = settings -%}
+{%- set qo = quickOrder -%}
+<script type="application/json" id="qo-data">{{ qo | dump | safe }}</script>
+<script type="application/json" id="booking-data">{{ booking | dump | safe }}</script>
+
+<section class="section" style="padding-top:0" aria-labelledby="designs-title">
+  <div class="wrap">
+    <h2 id="designs-title" class="sr-only">Designs</h2>
+    <div class="card-grid three">
+      {%- for d in computed.quickAvailable %}
+      <article class="card lift reveal">
+        {%- if d.photo %}
+        <div class="card-photo">{% image d.photo, d.alt, "(min-width: 1024px) 380px, (min-width: 640px) 50vw, 100vw" %}</div>
+        {%- else %}
+        <div class="card-photo missing"><mark class="ph">[[PLACEHOLDER: photo of the {{ d.name }} design]]</mark></div>
+        {%- endif %}
+        <div class="card-body">
+          <h3>{{ d.name }}</h3>
+          <p>{{ d.description }}</p>
+          <div class="qo-prices">
+            <span>{{ qo.sizes[0].label }} <strong>{{ d.price6 | money }}</strong></span>
+            <span>{{ qo.sizes[1].label }} <strong>{{ d.price8 | money }}</strong></span>
+          </div>
+          <button type="button" class="btn btn-outline" style="margin-top:14px" data-pick-design="{{ d.name }}">Order this design</button>
+        </div>
+      </article>
+      {%- endfor %}
+    </div>
+  </div>
+</section>
+
+<section class="section qo-band" aria-labelledby="order-title">
+  <div class="wrap split">
+    <div class="panel-white reveal" id="order-form">
+      <h2 id="order-title" style="font-size:2rem;margin-bottom:18px">Place your <em>order.</em></h2>
+      {{ f.open("Quick Order", site.formspree.quickOrder) }}
+        <fieldset>
+          <legend>Your cake</legend>
+          <div class="field">
+            <label for="f-design">Design</label>
+            <select id="f-design" name="design" required>
+              <option value="">Choose a design</option>
+              {%- for d in computed.quickAvailable %}<option>{{ d.name }}</option>{% endfor %}
+            </select>
+          </div>
+          <div class="field">
+            <span class="label" id="size-label">Size</span>
+            <div class="choices" role="radiogroup" aria-labelledby="size-label">
+              {%- for sz in qo.sizes %}
+              <label class="choice"><input type="radio" name="size" value="{{ sz.label }}" required><span>{{ sz.label }}, serves {{ sz.serves }}</span></label>
+              {%- endfor %}
+            </div>
+          </div>
+          <div class="form-row two">
+            <div class="field" data-qo-flavor hidden>
+              <label for="f-cake_flavor">Cake flavor</label>
+              <select id="f-cake_flavor" name="cake_flavor" data-required-when-shown disabled></select>
+            </div>
+            <div class="field" data-qo-filling hidden>
+              <label for="f-filling">Filling</label>
+              <select id="f-filling" name="filling" data-required-when-shown disabled>
+                <option value="">Choose a filling</option>
+                <option>Strawberry fruit filling</option>
+                <optgroup label="Flavored buttercream">{% for fl in flavors.buttercreamFillings %}<option>{{ fl }} buttercream</option>{% endfor %}</optgroup>
+              </select>
+            </div>
+          </div>
+          <div class="field" data-qo-colors hidden>
+            <label for="f-colors">Accent colors</label>
+            <input id="f-colors" name="colors" type="text" data-required-when-shown disabled placeholder="For example: blush pink and gold">
+          </div>
+          <label class="check-line"><input type="checkbox" name="topper" value="Yes"> Add a {{ qo.topper.name }} (+{{ qo.topper.price | money }})</label>
+        </fieldset>
+
+        <fieldset>
+          <legend>Pickup</legend>
+          <div class="form-row two">
+            {{ f.input("pickup_date", "Pickup date", "date", true, 'Earliest pickup: <span data-earliest>' ~ qo.noticeDays ~ ' days from today</span>') }}
+            <div class="field">
+              <label for="f-pickup_window">Pickup window</label>
+              <select id="f-pickup_window" name="pickup_window" required>
+                <option value="">Choose a window</option>
+                {%- for w in s.pickupWindows %}<option>{{ w }}</option>{% endfor %}
+              </select>
+            </div>
+          </div>
+          <p class="hint">Pickup is in {{ s.city }}. Your pickup time is confirmed by text or email.</p>
+        </fieldset>
+
+        <fieldset>
+          <legend>About you</legend>
+          {{ f.contact() }}
+          {{ f.textarea("notes", "Anything else?") }}
+        </fieldset>
+
+        <div class="summary-box">
+          <span>Estimated total</span><br>
+          <strong data-total>Choose a design and size</strong>
+          <input type="hidden" name="estimated_total">
+          <p class="hint" style="margin:6px 0 0">{{ qo.rules[0] }}</p>
+        </div>
+      {{ f.close("Place my Quick Order") }}
+      <p class="hint" style="margin-top:12px"><mark class="ph">[[PLACEHOLDER: online payment, if added later]]</mark></p>
+    </div>
+
+    <aside class="reveal" style="display:grid;gap:20px">
+      <div class="price-card">
+        <h3>How Quick Order works</h3>
+        <ul class="facts" style="margin:0">
+          {%- for r in qo.rules %}<li>{{ i.checkDot() }}<span>{{ r }}</span></li>{% endfor %}
+          <li>{{ i.checkDot() }}<span>Pickup windows: {{ s.pickupWindows | join(" or ") }}.</span></li>
+        </ul>
+      </div>
+      <div class="price-card">
+        <h3>Order deadlines</h3>
+        <p>Order by {{ computed.cutoffLabel }} on the day shown for your pickup day.</p>
+        <table class="schedule">
+          <thead><tr><th scope="col">Order by {{ computed.cutoffLabel }}</th><th scope="col">For pickup</th></tr></thead>
+          <tbody>
+            {%- for row in computed.cutoffSchedule %}
+            <tr><td>{{ row.orderDay }}</td><td>{{ row.pickupDay }}</td></tr>
+            {%- endfor %}
+          </tbody>
+        </table>
+      </div>
+      {%- if booking.blockouts | length %}
+      <div class="price-card">
+        <h3>Unavailable dates</h3>
+        <ul>{% for b in booking.blockouts %}<li>{{ b.start }}{% if b.end and b.end != b.start %} to {{ b.end }}{% endif %}{% if b.note %} ({{ b.note }}){% endif %}</li>{% endfor %}</ul>
+      </div>
+      {%- endif %}
+      <div class="notice">
+        <p><strong>Want something different?</strong> <a href="/order/">Request a custom order</a> for any design, size or flavor.</p>
+      </div>
+    </aside>
+  </div>
+</section>
+
+{%- set faqItems = faqs | faqsFor("quick-order") -%}
+{% include "partials/faq.njk" %}

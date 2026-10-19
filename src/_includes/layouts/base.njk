@@ -1,0 +1,66 @@
+{%- set s = settings -%}
+{%- set canonical = site.url + page.url -%}
+{%- set ogImage = site.url + (ogImageUrl or "/assets/og-image.jpg") -%}
+<!doctype html>
+<html lang="en-US">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{ pageTitle or title }}</title>
+  <meta name="description" content="{{ description }}">
+  <link rel="canonical" href="{{ canonical }}">
+  {%- if noindex or preview %}<meta name="robots" content="noindex">{% endif %}
+
+  <meta property="og:type" content="{{ ogType or 'website' }}">
+  <meta property="og:site_name" content="{{ s.name }}">
+  <meta property="og:title" content="{{ ogTitle or pageTitle or title }}">
+  <meta property="og:description" content="{{ description }}">
+  <meta property="og:url" content="{{ canonical }}">
+  <meta property="og:image" content="{{ ogImage }}">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="{{ settings.name }}: custom cakes, made from scratch, in Coopersburg, PA">
+  <meta property="og:locale" content="en_US">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="{{ ogTitle or pageTitle or title }}">
+  <meta name="twitter:description" content="{{ description }}">
+  <meta name="twitter:image" content="{{ ogImage }}">
+
+  <link rel="preload" href="/assets/fonts/dm-serif-display-400.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/assets/fonts/nunito-sans-400.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/assets/fonts/dm-serif-display-400-italic.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/assets/fonts/allura-400.woff2" as="font" type="font/woff2" crossorigin>
+  {%- if preloadSrcset %}
+  <link rel="preload" as="image" type="image/webp" imagesrcset="{{ preloadSrcset }}" imagesizes="{{ preloadSizes }}" fetchpriority="high">
+  {%- endif %}
+  <link rel="stylesheet" href="/assets/css/site.css?v={{ build.version }}">
+
+  <link rel="icon" href="/favicon.ico" sizes="48x48">
+  <link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <meta name="theme-color" content="#FBF7F4">
+
+  <script>document.documentElement.classList.add("js")</script>
+  {% include "partials/analytics.njk" %}
+  {% schema %}
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  {% include "partials/announcement.njk" %}
+  {% include "partials/header.njk" %}
+
+  <main id="main">
+    {{ content | safe }}
+  </main>
+
+  {% include "partials/footer.njk" %}
+  {% include "partials/action-bar.njk" %}
+
+  <script src="/assets/js/site.js?v={{ build.version }}" defer></script>
+  {%- for js in scripts or [] %}
+  <script src="/assets/js/{{ js }}.js?v={{ build.version }}" defer></script>
+  {%- endfor %}
+</body>
+</html>
