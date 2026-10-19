@@ -119,7 +119,7 @@ content:
           - name: items
             label: Cupcake options
             type: object
-            list: { collapsible: { collapsed: true, summary: "{name}: ${price}" } }
+            list: { collapsible: { collapsed: true, summary: "{name}" } }
             fields:
               - { name: name, label: Option name, type: string, required: true }
               - { name: price, label: Price (numbers only), component: price }
@@ -188,7 +188,7 @@ content:
       - name: sizes
         label: Sizes
         type: object
-        list: { min: 2, max: 2 }
+        list: { min: 2, max: 2, collapsible: { collapsed: true, summary: "{label}, serves {serves}" } }
         fields:
           - { name: key, label: Size number, type: string, required: true, readonly: true }
           - { name: label, label: Size name, type: string, required: true }
