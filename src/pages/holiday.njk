@@ -1,0 +1,34 @@
+---
+layout: layouts/page.njk
+permalink: /holiday/
+key: holiday
+title: "Holiday Cakes & Desserts in Coopersburg, PA | Laura, My Sweets"
+label: Seasonal pre-orders
+heading: "Holiday <em>treats.</em>"
+description: "Seasonal cakes and desserts from Laura, My Sweets in Coopersburg, PA for Thanksgiving, Christmas, Valentine's Day, Easter and more. Pre-order or join the list."
+lede: "Seasonal cakes and desserts for the holidays. When pre-orders are open, you'll find them here."
+related: [cupcakes-cake-pops, order, gallery]
+---
+{%- import "partials/icons.njk" as i -%}
+{%- set onPages = collections.seasonal | seasonalByStatus("on") -%}
+{%- set offPages = collections.seasonal | seasonalByStatus("off-season") -%}
+<section class="section" style="padding-top:0">
+  <div class="wrap">
+    {%- if onPages | length %}
+    <h2 class="related-title">Taking pre-orders <em>now</em></h2>
+    <ul class="related-list" style="margin-bottom:40px">
+      {%- for p in onPages %}
+      <li><a href="{{ p.url }}"><strong>{{ p.data.title }}</strong><span>Pre-order by {{ p.data.deadline or "the date on the page" }}</span>{{ i.icon("arrow", 18) }}</a></li>
+      {%- endfor %}
+    </ul>
+    {%- endif %}
+    {%- if offPages | length %}
+    <h2 class="related-title">Back next <em>season</em></h2>
+    <ul class="related-list">
+      {%- for p in offPages %}
+      <li><a href="{{ p.url }}"><strong>{{ p.data.title }}</strong><span>See last season's treats and join the list</span>{{ i.icon("arrow", 18) }}</a></li>
+      {%- endfor %}
+    </ul>
+    {%- endif %}
+  </div>
+</section>

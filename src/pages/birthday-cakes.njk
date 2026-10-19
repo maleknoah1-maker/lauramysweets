@@ -1,0 +1,36 @@
+---
+layout: layouts/service.njk
+permalink: /birthday-cakes/
+key: birthday-cakes
+title: "Custom Birthday Cakes in the Lehigh Valley | Laura, My Sweets"
+label: Kids' and adults' birthday cakes
+heading: "Custom birthday cakes, <em>made for them.</em>"
+galleryCategory: Birthday
+galleryLabel: Birthday cakes
+galleryHeading: "Recent birthday <em>cakes.</em>"
+related: [smash-cakes, quick-order, menu]
+eleventyComputed:
+  description: "Custom birthday cakes for kids and adults, baked to order in Coopersburg, PA. Cakes from {{ computed.cakeFrom | money }}. Serving Allentown, Bethlehem and the Lehigh Valley."
+  lede: "Birthday cakes designed around the guest of honor and baked to order in Coopersburg, from {{ computed.cakeFrom | money }}."
+---
+{%- import "partials/prices.njk" as prices -%}
+{%- import "partials/icons.njk" as i -%}
+<section class="section" style="padding-top:0">
+  <div class="wrap split">
+    <div class="prose reveal" style="margin:0">
+      <h2 style="margin-top:0">A cake that fits <em>the birthday.</em></h2>
+      <p>Whether it's a third birthday or a fortieth, Laura designs each cake around the person it's for: their favorite colors, a theme they love, or a simple, elegant look. Every birthday cake is baked to order in {{ settings.city }} and finished in vanilla buttercream, with your choice of cake flavor and filling.</p>
+      <p>Families order from Allentown, Bethlehem, Center Valley, Hellertown, Emmaus, Quakertown and towns across the Lehigh Valley, with pickup in {{ settings.city }} or delivery.</p>
+      <h3>Flavors and fillings</h3>
+      <p>Cake flavors: {% for f in flavors.cake %}{{ f.name }}{% if not loop.last %}, {% endif %}{% endfor %}. Fillings include {{ flavors.fillings | join(", ") }}, or a flavored buttercream filling. <a href="/menu/#flavors">See every flavor</a>.</p>
+      <div class="notice">
+        <p><strong>Need it sooner?</strong> Quick Order cakes are set designs ready with {{ quickOrder.noticeDays }} days' notice, from {{ computed.quickFrom | money }}. <a href="/quick-order/" data-track="quick_order_click">See Quick Order cakes</a></p>
+      </div>
+    </div>
+    <div class="price-grid" style="grid-template-columns:1fr">
+      {{ prices.cakes(menu) }}
+      {{ prices.cupcakes(menu) }}
+      <p><a class="btn btn-outline" href="/menu/">Full menu and prices</a></p>
+    </div>
+  </div>
+</section>

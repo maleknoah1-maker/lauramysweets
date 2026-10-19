@@ -1,0 +1,20 @@
+{#- Expects galleryCategory (string) or shows all with filter tabs when galleryFilter is true -#}
+{%- set photos = gallery | where("category", galleryCategory) if galleryCategory else gallery -%}
+<section class="section" aria-labelledby="gallery-title">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="script-label">{{ galleryLabel or "Recent work" }}</span>
+      <h2 id="gallery-title">{% if galleryHeading %}{{ galleryHeading | safe }}{% else %}From Laura's <em>kitchen.</em>{% endif %}</h2>
+    </div>
+    {%- if photos | length %}
+    <div class="photo-grid">
+      {%- for p in photos %}
+      <figure class="reveal">{% image p.image, p.alt, "(min-width: 900px) 380px, 50vw" %}</figure>
+      {%- endfor %}
+    </div>
+    {%- else %}
+    <p class="empty-note"><mark class="ph">[[PLACEHOLDER: {{ galleryCategory }} photos]]</mark></p>
+    {%- endif %}
+    <p class="center-cta"><a class="btn btn-outline" href="/gallery/">View the full gallery</a></p>
+  </div>
+</section>

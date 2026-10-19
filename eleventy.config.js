@@ -73,6 +73,28 @@ export default function (eleventyConfig) {
     return "$" + (Number.isInteger(n) ? n : n.toFixed(2));
   });
 
+  eleventyConfig.addFilter("where", (arr, key, value) => (arr || []).filter((x) => x[key] === value));
+
+  eleventyConfig.addFilter("seasonalByStatus", (pages, status) =>
+    (pages || []).filter((p) => (p.data.status || "off-season") === status).sort((a, b) => a.data.title.localeCompare(b.data.title))
+  );
+
+  // When a holiday page is "on", the Holiday nav item becomes a menu that lists it.
+  eleventyConfig.addFilter("withHoliday", (items, seasonal) => {
+    const on = (seasonal || []).filter((p) => p.data.status === "on");
+    if (!on.length) return items;
+    return items.map((item) =>
+      item.url === "/holiday/"
+        ? { label: item.label, children: [...on.map((p) => ({ label: `${p.data.title} pre-orders`, url: p.url })), { label: "All holiday treats", url: "/holiday/" }] }
+        : item
+    );
+  });
+
+  eleventyConfig.addFilter("isoDate", (d) => new Date(d).toISOString().slice(0, 10));
+  eleventyConfig.addFilter("longDate", (d) =>
+    new Date(d).toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric", timeZone: "UTC" })
+  );
+
   eleventyConfig.addFilter("rating", (n) => Number(n).toFixed(1));
 
   eleventyConfig.addFilter("faqsFor", (faqs, page) => faqs.filter((f) => (f.pages || []).includes(page)));

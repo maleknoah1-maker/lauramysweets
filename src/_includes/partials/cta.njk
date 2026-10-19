@@ -1,0 +1,14 @@
+{%- import "partials/icons.njk" as i -%}
+<section class="section final-cta" aria-labelledby="cta-title">
+  <div class="wrap">
+    <div class="panel reveal">
+      <span class="script-label" style="color:var(--blush)">Let's get baking</span>
+      <h2 id="cta-title">{% if ctaHeading %}{{ ctaHeading | safe }}{% else %}Tell Laura about <em>your celebration.</em>{% endif %}</h2>
+      <p>Share your date, guest count and ideas, and Laura will get back to you with options and a price. Prefer to talk? Text or call {{ settings.phone }}.</p>
+      <div class="buttons">
+        <a class="btn btn-primary" href="/order/">Start a custom order {{ i.icon("arrow", 18) }}</a>
+        <a class="btn btn-outline" href="sms:{{ computed.tel }}" data-track="text_click">Text {{ settings.phone }}</a>
+      </div>
+    </div>
+  </div>
+</section>

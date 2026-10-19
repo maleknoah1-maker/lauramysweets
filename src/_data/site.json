@@ -1,0 +1,10 @@
+{
+  "url": "https://lauramysweets.com",
+  "formspree": {
+    "order": "[[PLACEHOLDER: Formspree form ID, custom order]]",
+    "quickOrder": "[[PLACEHOLDER: Formspree form ID, Quick Order]]",
+    "classes": "[[PLACEHOLDER: Formspree form ID, classes]]",
+    "waitlist": "[[PLACEHOLDER: Formspree form ID, seasonal waitlist]]"
+  },
+  "ga4": "[[PLACEHOLDER: GA4 measurement ID]]"
+}

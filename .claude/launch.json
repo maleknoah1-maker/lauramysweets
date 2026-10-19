@@ -3,8 +3,8 @@
   "configurations": [
     {
       "name": "eleventy",
-      "runtimeExecutable": "C:\\Program Files\\nodejs\\npx.cmd",
-      "runtimeArgs": ["eleventy", "--serve", "--port=8080"],
+      "runtimeExecutable": "cmd.exe",
+      "runtimeArgs": ["/c", "cd /d \"C:\\Users\\Noah\\Desktop\\Claude Projects\\lauramysweets\" && npx eleventy --serve --port=8080"],
       "port": 8080
     }
   ]

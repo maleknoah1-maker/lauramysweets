@@ -1,6 +1,6 @@
 {%- import "partials/icons.njk" as i -%}
 <nav class="action-bar" aria-label="Quick contact">
   <a class="ab-order" href="/order/">{{ i.icon("cake", 20) }} Order</a>
-  <a class="ab-text" href="sms:{{ settings.phoneE164 }}" data-track="text_click">{{ i.icon("chat", 20) }} Text</a>
-  <a class="ab-call" href="tel:{{ settings.phoneE164 }}" data-track="phone_click">{{ i.icon("phone", 20) }} Call</a>
+  <a class="ab-text" href="sms:{{ computed.tel }}" data-track="text_click">{{ i.icon("chat", 20) }} Text</a>
+  <a class="ab-call" href="tel:{{ computed.tel }}" data-track="phone_click">{{ i.icon("phone", 20) }} Call</a>
 </nav>

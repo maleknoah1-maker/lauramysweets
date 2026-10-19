@@ -8,6 +8,7 @@ import path from "node:path";
 const [urlPath = "/", name = "page", width = "1280", mode = "full", height] = process.argv.slice(2);
 const W = Number(width);
 const H = Number(height) || (W < 768 ? 844 : 860);
+const base = process.env.BASE || "http://localhost:8081";
 const edge = "C:/Program Files (x86)/Microsoft/Edge/Application/msedge.exe";
 const port = 9333;
 const outDir = path.resolve("screenshots");
@@ -42,7 +43,7 @@ const send = (method, params = {}) => new Promise((res, rej) => {
 
 await send("Page.enable");
 await send("Emulation.setDeviceMetricsOverride", { width: W, height: H, deviceScaleFactor: 1, mobile: W < 768 });
-await send("Page.navigate", { url: `http://localhost:8080${urlPath}` });
+await send("Page.navigate", { url: `${base}${urlPath}` });
 for (let i = 0; i < 100 && !events.some((e) => e.method === "Page.loadEventFired"); i++) await sleep(100);
 
 // Show everything the fade-ins and lazy loading would reveal while scrolling.

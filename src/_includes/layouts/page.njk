@@ -1,0 +1,40 @@
+---
+layout: layouts/base.njk
+---
+{#- Inner pages: breadcrumbs, page hero, content, related links, call to action.
+    Front matter: key, label (script label), heading (HTML, one <em> accent), lede, related (page keys), hideCta -#}
+{%- import "partials/icons.njk" as i -%}
+{% include "partials/breadcrumbs.njk" %}
+
+<section class="page-hero">
+  <div class="sprinkles" aria-hidden="true">
+    <span class="p md desk" style="left:3%;top:30px;transform:rotate(30deg)"></span>
+    <span class="d ro desk" style="left:6%;top:150px"></span>
+    <span class="p bl desk" style="left:93%;top:40px;transform:rotate(-30deg)"></span>
+    <span class="d md desk" style="left:96%;top:160px"></span>
+    <span class="p ro desk" style="left:88%;top:200px;transform:rotate(20deg)"></span>
+    <span class="p md mob" style="left:1%;top:20px;transform:rotate(30deg)"></span>
+    <span class="d ro mob" style="left:96%;top:60px"></span>
+  </div>
+  <div class="wrap">
+    {%- if label %}<span class="script-label">{{ label }}</span>{% endif %}
+    <h1>{% if heading %}{{ heading | safe }}{% else %}{{ title }}{% endif %}</h1>
+    {%- if lede %}<p class="lede">{{ lede | ph | safe }}</p>{% endif %}
+    {%- if heroCtas %}
+    <div class="hero-ctas page-ctas">
+      <a class="btn btn-primary" href="/order/">Start a custom order {{ i.icon("arrow", 18) }}</a>
+      <a class="btn btn-outline" href="sms:{{ computed.tel }}" data-track="text_click">Text {{ settings.phone }}</a>
+    </div>
+    {%- endif %}
+  </div>
+</section>
+
+{{ content | safe }}
+
+{%- if related %}
+{% include "partials/related.njk" %}
+{%- endif %}
+
+{%- if not hideCta %}
+{% include "partials/cta.njk" %}
+{%- endif %}

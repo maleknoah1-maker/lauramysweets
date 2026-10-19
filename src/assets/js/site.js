@@ -44,6 +44,27 @@
     document.addEventListener("keydown", function (e) { if (e.key === "Escape" && !panel.hidden) setMenu(false); });
   }
 
+  // Gallery category filter (without JavaScript, every photo simply shows)
+  var tabs = document.querySelector("[data-filter]");
+  var grid = document.querySelector("[data-gallery]");
+  if (tabs && grid) {
+    tabs.hidden = false;
+    var empty = document.querySelector("[data-empty]");
+    tabs.addEventListener("click", function (e) {
+      var btn = e.target.closest("button[data-cat]");
+      if (!btn) return;
+      var cat = btn.getAttribute("data-cat");
+      tabs.querySelectorAll("button").forEach(function (b) { b.setAttribute("aria-pressed", String(b === btn)); });
+      var shown = 0;
+      grid.querySelectorAll("figure").forEach(function (fig) {
+        var on = cat === "all" || fig.getAttribute("data-cat") === cat;
+        fig.hidden = !on;
+        if (on) shown++;
+      });
+      if (empty) empty.hidden = shown > 0;
+    });
+  }
+
   // Gentle fade-up on scroll
   var reveals = document.querySelectorAll(".reveal");
   var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;

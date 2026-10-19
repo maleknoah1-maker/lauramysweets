@@ -1,0 +1,28 @@
+---
+layout: layouts/page.njk
+---
+{#- Blog post: article body, its own FAQ section, related links and CTA (from page.njk). -#}
+<article class="section" style="padding-top:0">
+  <div class="wrap prose">
+    <p class="post-meta" style="margin-top:0;text-align:center">By {{ author }} &middot; <time datetime="{{ page.date | isoDate }}">{{ page.date | longDate }}</time></p>
+    {{ content | safe }}
+  </div>
+</article>
+
+{%- if faqs_post and faqs_post | length %}
+<section class="section" aria-labelledby="post-faq-title" style="padding-top:0">
+  <div class="wrap">
+    <div class="section-head">
+      <h2 id="post-faq-title">Quick <em>answers.</em></h2>
+    </div>
+    <div class="faq-list">
+      {%- for q in faqs_post %}
+      <details>
+        <summary>{{ q.q }}</summary>
+        <div><p>{{ q.a | ph | safe }}</p></div>
+      </details>
+      {%- endfor %}
+    </div>
+  </div>
+</section>
+{%- endif %}

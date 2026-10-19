@@ -1,25 +1,25 @@
 {%- set s = settings -%}
-{%- set canonical = s.url + page.url -%}
-{%- set ogImage = s.url + (ogImageUrl or "/og-image.jpg") -%}
+{%- set canonical = site.url + page.url -%}
+{%- set ogImage = site.url + (ogImageUrl or "/og-image.jpg") -%}
 <!doctype html>
 <html lang="en-US">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>{{ title }}</title>
+  <title>{{ pageTitle or title }}</title>
   <meta name="description" content="{{ description }}">
   <link rel="canonical" href="{{ canonical }}">
   {%- if noindex %}<meta name="robots" content="noindex">{% endif %}
 
   <meta property="og:type" content="{{ ogType or 'website' }}">
   <meta property="og:site_name" content="{{ s.name }}">
-  <meta property="og:title" content="{{ ogTitle or title }}">
+  <meta property="og:title" content="{{ ogTitle or pageTitle or title }}">
   <meta property="og:description" content="{{ description }}">
   <meta property="og:url" content="{{ canonical }}">
   <meta property="og:image" content="{{ ogImage }}">
   <meta property="og:locale" content="en_US">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="{{ ogTitle or title }}">
+  <meta name="twitter:title" content="{{ ogTitle or pageTitle or title }}">
   <meta name="twitter:description" content="{{ description }}">
   <meta name="twitter:image" content="{{ ogImage }}">
 
@@ -52,5 +52,8 @@
   {% include "partials/action-bar.njk" %}
 
   <script src="/assets/js/site.js?v={{ build.version }}" defer></script>
+  {%- for js in scripts or [] %}
+  <script src="/assets/js/{{ js }}.js?v={{ build.version }}" defer></script>
+  {%- endfor %}
 </body>
 </html>

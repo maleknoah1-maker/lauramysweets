@@ -15,8 +15,8 @@
       <div>
         <h2>Contact</h2>
         <ul>
-          <li><a href="tel:{{ s.phoneE164 }}" data-track="phone_click">Call {{ s.phone }}</a></li>
-          <li><a href="sms:{{ s.phoneE164 }}" data-track="text_click">Text {{ s.phone }}</a></li>
+          <li><a href="tel:{{ computed.tel }}" data-track="phone_click">Call {{ s.phone }}</a></li>
+          <li><a href="sms:{{ computed.tel }}" data-track="text_click">Text {{ s.phone }}</a></li>
           <li><a href="mailto:{{ s.email }}">{{ s.email }}</a></li>
           <li>{{ s.city }}, {{ s.region }} {{ s.zip }}</li>
           <li>Hours: {{ s.hours | ph | safe }}</li>

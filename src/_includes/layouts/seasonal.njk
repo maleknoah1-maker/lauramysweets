@@ -1,0 +1,50 @@
+---
+layout: layouts/page.njk
+---
+{%- import "partials/form.njk" as f -%}
+{%- import "partials/icons.njk" as i -%}
+{%- set isOn = status == "on" -%}
+<div class="seasonal" data-accent="{{ accent or 'autumn' }}">
+  <div class="wrap" style="text-align:center;margin-top:-28px">
+    <span class="season-status">{{ "Taking pre-orders now" if isOn else "These treats are back next season" }}</span>
+    <div class="accent-bar" aria-hidden="true"></div>
+  </div>
+
+  {%- if isOn %}
+  <section class="section">
+    <div class="wrap">
+      <div class="price-grid" style="max-width:860px;margin:0 auto 32px">
+        <div class="price-card"><h3>Pre-order by</h3><p style="margin:0">{{ (deadline | ph | safe) if deadline else "Ask Laura" }}</p></div>
+        <div class="price-card"><h3>Pickup dates</h3><p style="margin:0">{{ pickupDates | ph | safe }}</p></div>
+      </div>
+      {% include "partials/seasonal-items.njk" %}
+      <div class="center-cta">
+        <a class="btn btn-primary" href="/order/">Pre-order now {{ i.icon("arrow", 18) }}</a>
+        <a class="btn btn-outline" href="sms:{{ computed.tel }}" data-track="text_click">Text {{ settings.phone }}</a>
+      </div>
+    </div>
+  </section>
+  {%- else %}
+  <section class="section">
+    <div class="wrap split">
+      <div class="reveal">
+        <h2 style="font-size:2rem;margin-bottom:12px">Last season's <em>treats.</em></h2>
+        <p>Here's a look at what Laura made last {{ title }}. Join the list and you'll hear as soon as pre-orders open.</p>
+        {%- set compact = true %}
+        {% include "partials/seasonal-items.njk" %}
+      </div>
+      <div class="panel-white reveal">
+        <h2 style="font-size:2rem;margin-bottom:18px">Join the <em>{{ title }} list.</em></h2>
+        {{ f.open(title ~ " waitlist", site.formspree.waitlist, "") }}
+          <input type="hidden" name="holiday" value="{{ title }}">
+          {{ f.input("name", "Your name", "text", true, "", "name") }}
+          {{ f.input("email", "Email", "email", true, "", "email") }}
+          {{ f.input("phone", "Phone", "tel", false, "If you'd like a text when pre-orders open", "tel") }}
+        {{ f.close("Notify me") }}
+      </div>
+    </div>
+  </section>
+  {%- endif %}
+</div>
+
+{{ content | safe }}

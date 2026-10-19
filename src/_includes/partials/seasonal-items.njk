@@ -1,0 +1,17 @@
+{#- Seasonal items grid. Uses `items` from the page; `compact` for the off-season preview. -#}
+<div class="card-grid {{ 'two-col' if compact else 'three' }}" style="margin-top:20px">
+  {%- for it in items or [] %}
+  <article class="card reveal">
+    {%- if it.photo and it.alt %}
+    <div class="card-photo">{% image it.photo, it.alt, "(min-width: 1024px) 380px, (min-width: 640px) 50vw, 100vw" %}</div>
+    {%- else %}
+    <div class="card-photo missing"><mark class="ph">[[PLACEHOLDER: photo]]</mark></div>
+    {%- endif %}
+    <div class="card-body">
+      <h3>{{ it.name | ph | safe }}</h3>
+      {%- if it.description %}<p>{{ it.description | ph | safe }}</p>{% endif %}
+      {%- if it.price %}<span class="card-price">{{ it.price | money }}</span>{% endif %}
+    </div>
+  </article>
+  {%- endfor %}
+</div>

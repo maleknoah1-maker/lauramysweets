@@ -1,0 +1,92 @@
+---
+layout: layouts/page.njk
+permalink: /classes/
+key: classes
+title: "Kids' Baking Classes in the Lehigh Valley | Laura, My Sweets"
+label: For young bakers
+heading: "Kids' baking classes <em>&amp; camp.</em>"
+description: "Kids' baking classes and summer cooking camp with Laura, My Sweets in Coopersburg, PA. See upcoming dates or get notified about the next classes."
+related: [about, birthday-cakes, gallery]
+scripts: [forms]
+eleventyComputed:
+  lede: "{{ 'Hands-on baking classes and summer camp for kids with Laura in Coopersburg.' if classes.on else 'Laura has run baking classes for kids and a summer cooking camp. New dates are coming, so join the list to hear first.' }}"
+---
+{%- import "partials/form.njk" as f -%}
+{%- import "partials/icons.njk" as i -%}
+{%- set c = classes -%}
+
+{%- if c.on %}
+<section class="section" style="padding-top:0">
+  <div class="wrap split">
+    <div class="reveal">
+      <div class="prose" style="margin:0">
+        <p>{{ c.description | ph | safe }}</p>
+      </div>
+      <ul class="facts">
+        <li>{{ i.checkDot() }}<span><strong>Ages:</strong> {{ c.ages | ph | safe }}</span></li>
+        <li>{{ i.checkDot() }}<span><strong>Class size:</strong> {{ c.classSize | ph | safe }}</span></li>
+        <li>{{ i.checkDot() }}<span><strong>Where:</strong> {{ c.location | ph | safe }}</span></li>
+        <li>{{ i.checkDot() }}<span><strong>Price:</strong> {{ c.price | ph | safe }}</span></li>
+      </ul>
+      <div class="price-card">
+        <h3>Upcoming sessions</h3>
+        {%- if c.sessions | length %}
+        <table class="schedule">
+          <thead><tr><th scope="col">Session</th><th scope="col">When</th><th scope="col">Spots</th></tr></thead>
+          <tbody>
+            {%- for ses in c.sessions %}
+            <tr>
+              <td>{{ ses.title }}</td>
+              <td>{{ ses.date }}{% if ses.endDate %} to {{ ses.endDate }}{% endif %}{% if ses.time %}, {{ ses.time }}{% endif %}</td>
+              <td>{% if ses.status == "full" %}Full{% elif ses.status == "waitlist" %}Waitlist{% else %}{{ ses.spots }} open{% endif %}</td>
+            </tr>
+            {%- endfor %}
+          </tbody>
+        </table>
+        {%- else %}
+        <p>New dates are coming soon.</p>
+        {%- endif %}
+      </div>
+    </div>
+    <div class="panel-white reveal">
+      <h2 style="font-size:2rem;margin-bottom:18px">Sign <em>up.</em></h2>
+      {{ f.open("Class sign-up", site.formspree.classes) }}
+        {{ f.contact() }}
+        <div class="form-row two">
+          {{ f.input("child_name", "Child's name", "text", true) }}
+          {{ f.input("child_age", "Child's age", "number", true, "", "", 'min="1" inputmode="numeric"') }}
+        </div>
+        <div class="field">
+          <label for="f-session">Session</label>
+          <select id="f-session" name="session" required>
+            <option value="">Choose a session</option>
+            {%- for ses in c.sessions %}{% if ses.status != "full" %}<option>{{ ses.title }}, {{ ses.date }}{% if ses.status == "waitlist" %} (waitlist){% endif %}</option>{% endif %}{% endfor %}
+          </select>
+        </div>
+        {{ f.textarea("notes", "Allergies or anything Laura should know") }}
+      {{ f.close("Sign up") }}
+    </div>
+  </div>
+</section>
+{%- else %}
+<section class="section" style="padding-top:0">
+  <div class="wrap split">
+    <div class="prose reveal" style="margin:0">
+      <h2 style="margin-top:0">The next classes are <em>coming.</em></h2>
+      <p>Laura has taught kids' baking classes and run a summer cooking camp in {{ settings.city }}. Join the list and you'll be the first to hear when new dates open.</p>
+      <p><mark class="ph">[[PLACEHOLDER: what kids make and learn in class or camp]]</mark></p>
+    </div>
+    <div class="panel-white reveal">
+      <h2 style="font-size:2rem;margin-bottom:18px">Get notified about the <em>next classes.</em></h2>
+      {{ f.open("Classes waitlist", site.formspree.classes, "") }}
+        {{ f.input("name", "Your name", "text", true, "", "name") }}
+        {{ f.input("email", "Email", "email", true, "", "email") }}
+        {{ f.input("child_age", "Child's age", "number", false, "", "", 'min="1" inputmode="numeric"') }}
+      {{ f.close("Notify me") }}
+    </div>
+  </div>
+</section>
+{%- endif %}
+
+{%- set faqItems = faqs | faqsFor("classes") -%}
+{% include "partials/faq.njk" %}

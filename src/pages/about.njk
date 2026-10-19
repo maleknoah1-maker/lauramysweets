@@ -1,0 +1,35 @@
+---
+layout: layouts/page.njk
+permalink: /about/
+key: about
+title: "About Laura Malek | Laura, My Sweets, Coopersburg PA"
+label: Meet the baker
+heading: "Hi, I'm <em>Laura.</em>"
+description: "Laura Malek has run Laura, My Sweets since 2009: a licensed and insured home bakery in Coopersburg, PA making custom cakes for families across the Lehigh Valley."
+lede: "Laura, My Sweets has been baking custom cakes for Lehigh Valley families since 2009."
+related: [gallery, classes, order]
+---
+{%- import "partials/icons.njk" as i -%}
+{%- set s = settings -%}
+<section class="section" style="padding-top:0">
+  <div class="wrap about-grid">
+    <div class="about-photo reveal">
+      <div class="owner-placeholder"><mark class="ph">[[PLACEHOLDER: owner photo]]</mark></div>
+    </div>
+    <div class="prose reveal" style="margin:0">
+      <p>{{ s.owner }} started {{ s.name }} in {{ s.since }}. Today it's a licensed and insured home bakery in {{ s.city }}, {{ s.region }}, making custom birthday cakes, smash cakes, wedding cakes, cupcakes and cake pops to order.</p>
+      <p><mark class="ph">[[PLACEHOLDER: Laura's story in her own words: how she started, what she loves about baking, her family]]</mark></p>
+      <p>Laura has also taught kids' baking classes and run a summer cooking camp. <a href="/classes/">See upcoming classes</a>.</p>
+      <ul class="facts">
+        <li>{{ i.checkDot() }}Baking custom orders since {{ s.since }}</li>
+        <li>{{ i.checkDot() }}Licensed &amp; insured home bakery</li>
+        <li>{{ i.checkDot() }}Everything from scratch</li>
+        <li>{{ i.checkDot() }}Custom orders only; no walk-in storefront</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+{% include "partials/reviews.njk" %}
+{%- set faqItems = faqs | faqsFor("about") -%}
+{% include "partials/faq.njk" %}

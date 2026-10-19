@@ -16,6 +16,7 @@
     { "label": "Holiday", "url": "/holiday/" },
     { "label": "About", "url": "/about/" }
   ],
+  "galleryCategories": ["Birthday", "First Birthday & Smash", "Wedding & Events", "Cupcakes & Cake Pops", "Holiday"],
   "categories": [
     { "label": "Birthday", "url": "/birthday-cakes/" },
     { "label": "First Birthday & Smash", "url": "/smash-cakes/" },

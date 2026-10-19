@@ -1,0 +1,31 @@
+---
+layout: layouts/service.njk
+permalink: /smash-cakes/
+key: smash-cakes
+title: "Smash Cakes & First Birthday Cakes, Lehigh Valley | Laura, My Sweets"
+label: First birthdays
+heading: "First birthday &amp; <em>smash cakes.</em>"
+galleryCategory: "First Birthday & Smash"
+galleryLabel: First birthdays
+galleryHeading: "Smash cakes <em>and first birthdays.</em>"
+related: [birthday-cakes, cupcakes-cake-pops, blog]
+description: "Smash cakes and matching first birthday cakes, baked to order in Coopersburg, PA for families in Allentown, Bethlehem, Emmaus and across the Lehigh Valley."
+lede: "A little cake for the birthday baby to dig into, and a matching cake or cupcakes for everyone else."
+---
+{%- import "partials/prices.njk" as prices -%}
+<section class="section" style="padding-top:0">
+  <div class="wrap split">
+    <div class="prose reveal" style="margin:0">
+      <h2 style="margin-top:0">A cake just for <em>the baby.</em></h2>
+      <p>A first birthday deserves its own cake. Laura makes smash cakes for the birthday baby, plus a matching party cake or cupcakes for guests, all designed around your party colors and theme and baked to order in {{ settings.city }}.</p>
+      <p>Parents order from Center Valley, Hellertown, Allentown, Bethlehem, Emmaus, Quakertown and nearby towns, with pickup in {{ settings.city }} or delivery.</p>
+      <p><mark class="ph">[[PLACEHOLDER: smash cake size, price and any details, such as dye-free or low-sugar options]]</mark></p>
+      <p>Not sure what size to get? Read <a href="/blog/what-is-a-smash-cake/">what a smash cake is and how big it should be</a>.</p>
+    </div>
+    <div class="price-grid" style="grid-template-columns:1fr">
+      {{ prices.cakes(menu) }}
+      {{ prices.cupcakes(menu) }}
+      <p><a class="btn btn-outline" href="/menu/">Full menu and prices</a></p>
+    </div>
+  </div>
+</section>

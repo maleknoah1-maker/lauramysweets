@@ -8,7 +8,7 @@
 
     <nav class="main-nav" aria-label="Main">
       <ul>
-        {%- for item in nav.main %}
+        {%- for item in nav.main | withHoliday(collections.seasonal) %}
         {%- if item.children %}
         <li class="has-sub">
           <button type="button" aria-expanded="false" aria-controls="sub-{{ loop.index }}">{{ item.label }} {{ i.icon("chevron", 16) }}</button>
@@ -37,7 +37,7 @@
   </div>
   <nav aria-label="Mobile">
     <ul>
-      {%- for item in nav.main %}
+      {%- for item in nav.main | withHoliday(collections.seasonal) %}
       {%- if item.children %}
       <li>
         <span class="group-label">{{ item.label }}</span>

@@ -2,9 +2,7 @@
   "name": "Laura, My Sweets",
   "owner": "Laura Malek",
   "since": 2009,
-  "url": "https://lauramysweets.com",
   "phone": "(484) 293-1329",
-  "phoneE164": "+14842931329",
   "email": "lauramysweets@gmail.com",
   "city": "Coopersburg",
   "region": "PA",
@@ -31,15 +29,25 @@
     "Spinnerstown"
   ],
   "hours": "[[PLACEHOLDER: hours; Google currently lists 8 AM to 7 PM daily, appointment required]]",
-  "payments": ["Checks", "Debit cards", "American Express", "Discover", "Mastercard", "Visa"],
-  "pickupWindows": ["9 to 11 AM", "4 to 6 PM"],
+  "payments": [
+    "Checks",
+    "Debit cards",
+    "American Express",
+    "Discover",
+    "Mastercard",
+    "Visa"
+  ],
+  "pickupWindows": [
+    "9 to 11 AM",
+    "4 to 6 PM"
+  ],
   "deliveryNote": "[[PLACEHOLDER: delivery distance and fees]]",
   "fondantNote": "[[PLACEHOLDER: confirm whether fondant is decorations/toppers only or full fondant-covered cakes]]",
   "leadTime": "[[PLACEHOLDER: how far ahead to order custom cakes]]",
   "paymentTerms": "[[PLACEHOLDER: deposit vs. full payment, and when it's due]]",
   "replyTime": "[[PLACEHOLDER: reply time]]",
   "google": {
-    "rating": 5.0,
+    "rating": 5,
     "count": 18,
     "reviewsUrl": "[[PLACEHOLDER: Google reviews link]]",
     "writeReviewUrl": "[[PLACEHOLDER: Google write-a-review link]]",
@@ -48,19 +56,5 @@
   "social": {
     "facebook": "https://www.facebook.com/lauramysweets",
     "instagram": "https://www.instagram.com/lauramysweets"
-  },
-  "banner": {
-    "on": true,
-    "text": "Thanksgiving pre-orders open soon.",
-    "linkText": "Join the list",
-    "link": "/holiday/thanksgiving/"
-  },
-  "blockouts": [],
-  "formspree": {
-    "order": "[[PLACEHOLDER: Formspree form ID, custom order]]",
-    "quickOrder": "[[PLACEHOLDER: Formspree form ID, Quick Order]]",
-    "classes": "[[PLACEHOLDER: Formspree form ID, classes]]",
-    "waitlist": "[[PLACEHOLDER: Formspree form ID, seasonal waitlist]]"
-  },
-  "ga4": "[[PLACEHOLDER: GA4 measurement ID]]"
+  }
 }

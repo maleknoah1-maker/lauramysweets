@@ -1,0 +1,27 @@
+{#- Price tables, always read from menu.json -#}
+{% macro priceText(item) -%}
+{%- if item.priceMax -%}{{ item.price | money }} to {{ item.priceMax | money }}
+{%- else -%}{% if item.from %}From {% endif %}{{ item.price | money }}{% if item.plus %}+{% endif %}
+{%- endif -%}
+{%- if item.unit %}{% if item.unit == "dozen" %}/dozen{% else %} {{ item.unit }}{% endif %}{% endif -%}
+{%- endmacro %}
+
+{% macro table(title, items, notes=[], id="") -%}
+<div class="price-card reveal"{% if id %} id="{{ id }}"{% endif %}>
+  <h3>{{ title }}</h3>
+  <dl class="price-list">
+    {%- for item in items %}
+    <div>
+      <dt>{{ item.name }}{% if item.serves %}<span>Serves {{ item.serves }}</span>{% endif %}{% if item.note %}<span>{{ item.note }}</span>{% endif %}</dt>
+      <dd>{{ priceText(item) }}</dd>
+    </div>
+    {%- endfor %}
+  </dl>
+  {%- for n in notes %}{% if n %}<p class="price-note">{{ n }}</p>{% endif %}{% endfor %}
+</div>
+{%- endmacro %}
+
+{% macro cakes(menu) -%}{{ table("Cakes", menu.cakes.items, [menu.cakes.tieredNote, "All cakes are vanilla buttercream on the outside."], "cakes") }}{%- endmacro %}
+{% macro cupcakes(menu) -%}{{ table("Cupcakes", menu.cupcakes.items, [menu.cupcakes.minimum, "No marble cupcakes."], "cupcakes") }}{%- endmacro %}
+{% macro cakePops(menu) -%}{{ table("Cake pops", menu.cakePops.items, [menu.cakePops.note, menu.cakePops.minimum], "cake-pops") }}{%- endmacro %}
+{% macro other(menu) -%}{{ table("Other treats", menu.other.items, [], "other-treats") }}{%- endmacro %}

@@ -152,33 +152,26 @@ description: "Custom birthday cakes, wedding cakes, cupcakes and cake pops, bake
 </section>
 {%- endif %}
 
-{# 3. How ordering works #}
-<section class="section" aria-labelledby="how-title">
+{# Holiday pre-orders, only when a seasonal page is on #}
+{%- set holidayOn = collections.seasonal | seasonalByStatus("on") -%}
+{%- if holidayOn | length %}
+<section class="section" aria-labelledby="holiday-title" style="padding-bottom:0">
   <div class="wrap">
     <div class="section-head reveal">
-      <span class="script-label">Simple from start to finish</span>
-      <h2 id="how-title">How ordering <em>works.</em></h2>
+      <span class="script-label">Seasonal pre-orders</span>
+      <h2 id="holiday-title">Holiday treats are <em>here.</em></h2>
     </div>
-    <ol class="steps">
-      <li class="reveal">
-        <span class="step-num" aria-hidden="true">1</span>
-        <h3>Tell Laura about your event</h3>
-        <p>Send a custom order request with your date, servings and design ideas, or text or call {{ s.phone }}. Inspiration photos are welcome by text.</p>
-      </li>
-      <li class="reveal">
-        <span class="step-num" aria-hidden="true">2</span>
-        <h3>Get your design and price</h3>
-        <p>Laura replies within {{ s.replyTime | ph | safe }} to talk through flavors, design and price. {{ s.paymentTerms | ph | safe }}</p>
-      </li>
-      <li class="reveal">
-        <span class="step-num" aria-hidden="true">3</span>
-        <h3>Pick up or have it delivered</h3>
-        <p>Pick up in {{ s.city }}, or choose delivery. {{ s.deliveryNote | ph | safe }}</p>
-      </li>
-    </ol>
-    <p class="center-cta"><a class="btn btn-primary" href="/order/">Start a custom order {{ i.icon("arrow", 18) }}</a></p>
+    <ul class="related-list">
+      {%- for p in holidayOn %}
+      <li><a href="{{ p.url }}"><strong>{{ p.data.title }} pre-orders</strong><span>{% if p.data.deadline %}Order by {{ p.data.deadline }}{% else %}See the menu and pickup dates{% endif %}</span>{{ i.icon("arrow", 18) }}</a></li>
+      {%- endfor %}
+    </ul>
   </div>
 </section>
+{%- endif %}
+
+{# 3. How ordering works #}
+{% include "partials/how-it-works.njk" %}
 
 {# 4. Featured gallery #}
 {%- set featuredPhotos = gallery | selectattr("featured") -%}
@@ -244,16 +237,4 @@ description: "Custom birthday cakes, wedding cakes, cupcakes and cake pops, bake
 {% include "partials/faq.njk" %}
 
 {# 9. Final call to action #}
-<section class="section final-cta" aria-labelledby="cta-title" style="padding-top:0">
-  <div class="wrap">
-    <div class="panel reveal">
-      <span class="script-label" style="color:var(--blush)">Let's get baking</span>
-      <h2 id="cta-title">Tell Laura about <em>your celebration.</em></h2>
-      <p>Share your date, guest count and ideas, and Laura will get back to you with options and a price. Prefer to talk? Text or call {{ s.phone }}.</p>
-      <div class="buttons">
-        <a class="btn btn-primary" href="/order/">Start a custom order {{ i.icon("arrow", 18) }}</a>
-        <a class="btn btn-outline" href="sms:{{ s.phoneE164 }}" data-track="text_click">Text {{ s.phone }}</a>
-      </div>
-    </div>
-  </div>
-</section>
+{% include "partials/cta.njk" %}

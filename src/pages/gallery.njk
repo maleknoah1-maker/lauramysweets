@@ -1,0 +1,28 @@
+---
+layout: layouts/page.njk
+permalink: /gallery/
+key: gallery
+title: "Cake Gallery | Laura, My Sweets, Coopersburg PA"
+label: Laura's work
+heading: "The <em>gallery.</em>"
+description: "Photos of custom birthday cakes, smash cakes, wedding cakes, cupcakes, cake pops and holiday treats by Laura, My Sweets in Coopersburg, PA."
+lede: "Birthday cakes, wedding cakes, cupcakes, cake pops and holiday treats, all made by Laura in Coopersburg."
+related: [birthday-cakes, wedding-cakes, order]
+---
+<section class="section" style="padding-top:0">
+  <div class="wrap">
+    <div class="filter-tabs" role="group" aria-label="Filter photos by category" data-filter hidden>
+      <button type="button" aria-pressed="true" data-cat="all">All</button>
+      {%- for c in nav.galleryCategories %}
+      <button type="button" aria-pressed="false" data-cat="{{ c }}">{{ c }}</button>
+      {%- endfor %}
+    </div>
+    <div class="photo-grid" data-gallery>
+      {%- for p in gallery %}
+      <figure data-cat="{{ p.category }}">{% image p.image, p.alt, "(min-width: 900px) 380px, 50vw" %}</figure>
+      {%- endfor %}
+    </div>
+    <p class="empty-note" data-empty hidden>More photos in this category are coming soon. Follow along on <a href="{{ settings.social.instagram }}" rel="noopener">Instagram</a>.</p>
+    <p class="empty-note" style="margin-top:28px"><mark class="ph">[[PLACEHOLDER: full photo library, sorted by category]]</mark></p>
+  </div>
+</section>

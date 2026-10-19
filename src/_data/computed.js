@@ -6,6 +6,7 @@ const read = (name) => JSON.parse(fs.readFileSync(new URL(`./${name}`, import.me
 export default function () {
   const quick = read("quickOrder.json");
   const menu = read("menu.json");
+  const settings = read("settings.json");
 
   const available = quick.designs.filter((d) => d.available);
   const quickPrices = available.flatMap((d) => [d.price6, d.price8]).filter((n) => typeof n === "number");
@@ -24,7 +25,11 @@ export default function () {
     pickupDay: days[(i + quick.noticeDays) % 7],
   }));
 
+  // Phone links need +1 and digits only; Laura only ever edits the readable number.
+  const tel = "+1" + settings.phone.replace(/\D/g, "").replace(/^1(?=\d{10}$)/, "");
+
   return {
+    tel,
     quickFrom,
     quickAvailable: available,
     cakeFrom,

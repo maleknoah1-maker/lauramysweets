@@ -1,0 +1,39 @@
+{#- Form helpers. Every form posts to Formspree with a honeypot; forms.js handles submit. -#}
+
+{% macro open(formName, formId, redirect="/thanks/") -%}
+{%- set unconfigured = formId | isPlaceholder -%}
+<form class="form" method="POST" action="{% if unconfigured %}#{% else %}https://formspree.io/f/{{ formId }}{% endif %}"
+  data-form="{{ formName }}" data-redirect="{{ redirect }}"{% if unconfigured %} data-unconfigured{% endif %} novalidate>
+  <input type="hidden" name="_subject" value="{{ formName }}: new request from lauramysweets.com">
+  <div class="hp" aria-hidden="true"><label>Leave this empty <input type="text" name="_gotcha" tabindex="-1" autocomplete="off"></label></div>
+{%- endmacro %}
+
+{% macro close(buttonText="Send request") -%}
+  <div class="form-status" role="status" aria-live="polite"></div>
+  <button class="btn btn-primary" type="submit">{{ buttonText }}</button>
+</form>
+{%- endmacro %}
+
+{% macro input(name, label, type="text", required=false, hint="", autocomplete="", attrs="") -%}
+<div class="field">
+  <label for="f-{{ name }}">{{ label }}{% if not required %} <span class="hint">(optional)</span>{% endif %}</label>
+  {%- if hint %}<span class="hint" id="h-{{ name }}">{{ hint | safe }}</span>{% endif %}
+  <input id="f-{{ name }}" name="{{ name }}" type="{{ type }}"{% if required %} required{% endif %}{% if autocomplete %} autocomplete="{{ autocomplete }}"{% endif %}{% if hint %} aria-describedby="h-{{ name }}"{% endif %} {{ attrs | safe }}>
+</div>
+{%- endmacro %}
+
+{% macro textarea(name, label, required=false, hint="") -%}
+<div class="field">
+  <label for="f-{{ name }}">{{ label }}{% if not required %} <span class="hint">(optional)</span>{% endif %}</label>
+  {%- if hint %}<span class="hint" id="h-{{ name }}">{{ hint | safe }}</span>{% endif %}
+  <textarea id="f-{{ name }}" name="{{ name }}"{% if required %} required{% endif %}{% if hint %} aria-describedby="h-{{ name }}"{% endif %}></textarea>
+</div>
+{%- endmacro %}
+
+{% macro contact() -%}
+<div class="form-row two">
+  {{ input("name", "Your name", "text", true, "", "name") }}
+  {{ input("phone", "Phone", "tel", true, "For texts about your order", "tel") }}
+</div>
+{{ input("email", "Email", "email", true, "", "email") }}
+{%- endmacro %}

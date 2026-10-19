@@ -1,5 +1,5 @@
 {%- import "partials/icons.njk" as i -%}
-{%- set b = settings.banner -%}
+{%- set b = banner -%}
 {%- if b.on and b.text %}
 <div class="announce" data-announce="{{ b.text }}" role="region" aria-label="Announcement">
   <span>{{ b.text }}</span>

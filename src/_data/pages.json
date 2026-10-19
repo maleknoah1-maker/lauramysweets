@@ -1,0 +1,18 @@
+{
+  "home": { "label": "Home", "url": "/" },
+  "birthday-cakes": { "label": "Birthday cakes", "url": "/birthday-cakes/", "blurb": "Kids' and adults' birthday cakes in your colors and theme." },
+  "smash-cakes": { "label": "First birthday & smash cakes", "url": "/smash-cakes/", "blurb": "Smash cakes and matching party cakes for the first birthday." },
+  "wedding-cakes": { "label": "Wedding & event cakes", "url": "/wedding-cakes/", "blurb": "Tiered wedding cakes, bridal showers and dessert tables." },
+  "cupcakes-cake-pops": { "label": "Cupcakes & cake pops", "url": "/cupcakes-cake-pops/", "blurb": "Cupcakes, cake pops, dessert shooters and dipped pretzels." },
+  "quick-order": { "label": "Quick Order cakes", "url": "/quick-order/", "blurb": "Six set designs, ready with 5 days' notice." },
+  "menu": { "label": "Menu & prices", "url": "/menu/", "blurb": "Every price, flavor and filling in one place." },
+  "gallery": { "label": "Gallery", "url": "/gallery/", "blurb": "Photos of Laura's cakes and treats." },
+  "classes": { "label": "Kids' classes & camp", "url": "/classes/", "blurb": "Baking classes and summer camp for kids." },
+  "holiday": { "label": "Holiday treats", "url": "/holiday/", "blurb": "Seasonal pre-orders for the holidays." },
+  "order": { "label": "Custom order request", "url": "/order/", "blurb": "Tell Laura about your event." },
+  "about": { "label": "About Laura", "url": "/about/", "blurb": "Laura's story, since 2009." },
+  "faq": { "label": "FAQ", "url": "/faq/", "blurb": "Answers to common questions." },
+  "blog": { "label": "Cake guides", "url": "/blog/", "blurb": "Helpful guides for planning your cake." },
+  "policies": { "label": "Ordering policies", "url": "/policies/", "blurb": "Ordering, payment, pickup and delivery." },
+  "privacy": { "label": "Privacy", "url": "/privacy/" }
+}

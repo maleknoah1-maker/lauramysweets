@@ -1,0 +1,16 @@
+---
+layout: layouts/page.njk
+permalink: /thanks/
+title: "Thank You | Laura, My Sweets"
+heading: "Thank <em>you!</em>"
+description: "Your request was sent to Laura, My Sweets."
+noindex: true
+hideCta: true
+related: [gallery, menu, faq]
+---
+<section class="section" style="padding-top:0">
+  <div class="wrap prose" style="text-align:center">
+    <p>Your request is on its way to Laura. She'll reply within {{ settings.replyTime | ph | safe }}</p>
+    <p>Have inspiration photos? Text them to <a href="sms:{{ computed.tel }}" data-track="text_click">{{ settings.phone }}</a>.</p>
+  </div>
+</section>
