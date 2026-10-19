@@ -70,6 +70,7 @@ description: "Custom birthday cakes, wedding cakes, cupcakes and cake pops, bake
 
 {# 1. Category cards #}
 <section class="section" aria-labelledby="cats-title">
+  {% sprinkles "home-cats-title", 10 %}
   <div class="wrap">
     <div class="section-head reveal">
       <span class="script-label">What Laura makes</span>
@@ -120,6 +121,7 @@ description: "Custom birthday cakes, wedding cakes, cupcakes and cake pops, bake
 {# 2. Quick Order preview #}
 {%- if c.quickAvailable | length %}
 <section class="section qo-band" aria-labelledby="qo-title">
+  {% sprinkles "home-qo-title", 8 %}
   <div class="wrap">
     <div class="section-head reveal">
       <span class="script-label">Ready in {{ quickOrder.noticeDays }} days</span>
@@ -156,6 +158,7 @@ description: "Custom birthday cakes, wedding cakes, cupcakes and cake pops, bake
 {%- set holidayOn = collections.seasonal | seasonalByStatus("on") -%}
 {%- if holidayOn | length %}
 <section class="section" aria-labelledby="holiday-title" style="padding-bottom:0">
+  {% sprinkles "home-holiday-title", 4 %}
   <div class="wrap">
     <div class="section-head reveal">
       <span class="script-label">Seasonal pre-orders</span>
@@ -177,6 +180,7 @@ description: "Custom birthday cakes, wedding cakes, cupcakes and cake pops, bake
 {%- set featuredPhotos = gallery | selectattr("featured") -%}
 {%- if featuredPhotos | length %}
 <section class="section" aria-labelledby="gallery-title" style="padding-top:0">
+  {% sprinkles "home-gallery-title", 8 %}
   <div class="wrap">
     <div class="section-head reveal">
       <span class="script-label">Recent work</span>
@@ -195,6 +199,7 @@ description: "Custom birthday cakes, wedding cakes, cupcakes and cake pops, bake
 {# 5. About Laura #}
 <div class="scallop scallop-blush" aria-hidden="true" style="transform:rotate(180deg)"></div>
 <section class="section" aria-labelledby="about-title" style="background:var(--blush-soft)">
+  {% sprinkles "home-about-title", 8 %}
   <div class="wrap about-grid">
     <div class="about-photo reveal">
       <div class="owner-placeholder"><mark class="ph">[[PLACEHOLDER: owner photo]]</mark></div>

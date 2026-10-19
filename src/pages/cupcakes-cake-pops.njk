@@ -25,10 +25,10 @@ eleventyComputed:
       {{ prices.other(menu) }}
       <div class="price-card reveal">
         <h3>Flavors</h3>
-        <p style="margin-bottom:8px"><strong>Cupcake flavors</strong></p>
-        <ul class="tag-list">{% for f in flavors.cake %}{% if f.cupcakes %}<li>{{ f.name }}</li>{% endif %}{% endfor %}</ul>
-        <p style="margin:16px 0 8px"><strong>Dessert shooter flavors</strong></p>
-        <ul class="tag-list">{% for f in flavors.shooters %}<li>{{ f }}</li>{% endfor %}</ul>
+        <h4 class="list-head">Cupcake flavors</h4>
+        {{ prices.flavorList(flavors.cake | selectattr("cupcakes"), "name") }}
+        <h4 class="list-head">Dessert shooter flavors</h4>
+        {{ prices.flavorList(flavors.shooters) }}
         <p class="price-note">Cupcakes have no filling unless requested.</p>
       </div>
     </div>

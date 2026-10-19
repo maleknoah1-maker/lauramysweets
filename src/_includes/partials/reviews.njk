@@ -2,6 +2,7 @@
 {%- set featuredReviews = reviews | selectattr("featured") -%}
 {%- set shown = featuredReviews if featuredReviews | length else reviews -%}
 <section class="section reviews-band" aria-labelledby="reviews-title">
+  {% sprinkles "rev-" + page.url, 6 %}
   <div class="wrap">
     <div class="reviews-summary reveal">
       <span class="script-label">Kind words</span>

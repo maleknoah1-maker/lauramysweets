@@ -7,15 +7,7 @@ layout: layouts/base.njk
 {% include "partials/breadcrumbs.njk" %}
 
 <section class="page-hero">
-  <div class="sprinkles" aria-hidden="true">
-    <span class="p md desk" style="left:3%;top:30px;transform:rotate(30deg)"></span>
-    <span class="d ro desk" style="left:6%;top:150px"></span>
-    <span class="p bl desk" style="left:93%;top:40px;transform:rotate(-30deg)"></span>
-    <span class="d md desk" style="left:96%;top:160px"></span>
-    <span class="p ro desk" style="left:88%;top:200px;transform:rotate(20deg)"></span>
-    <span class="p md mob" style="left:1%;top:20px;transform:rotate(30deg)"></span>
-    <span class="d ro mob" style="left:96%;top:60px"></span>
-  </div>
+  {% sprinkles "hero-" + page.url, 10, { top: 6, bottom: 90 } %}
   <div class="wrap">
     {%- if label %}<span class="script-label">{{ label }}</span>{% endif %}
     <h1>{% if heading %}{{ heading | safe }}{% else %}{{ title }}{% endif %}</h1>

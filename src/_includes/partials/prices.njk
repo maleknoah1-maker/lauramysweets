@@ -25,3 +25,35 @@
 {% macro cupcakes(menu) -%}{{ table("Cupcakes", menu.cupcakes.items, [menu.cupcakes.minimum, "No marble cupcakes."], "cupcakes") }}{%- endmacro %}
 {% macro cakePops(menu) -%}{{ table("Cake pops", menu.cakePops.items, [menu.cakePops.note, menu.cakePops.minimum], "cake-pops") }}{%- endmacro %}
 {% macro other(menu) -%}{{ table("Other treats", menu.other.items, [], "other-treats") }}{%- endmacro %}
+
+{#- Flavors as lists, styled like the price lists -#}
+{% macro flavorList(items, field="") -%}
+<ul class="flavor-list">
+  {%- for f in items %}
+  {%- if field %}
+  <li><span>{{ f[field] }}</span>{% if f.cupcakes === false %}<em>Cakes only</em>{% endif %}</li>
+  {%- else %}
+  <li><span>{{ f }}</span></li>
+  {%- endif %}
+  {%- endfor %}
+</ul>
+{%- endmacro %}
+
+{% macro flavors(fl, title="Flavors &amp; fillings", showShooters=false, showRules=true) -%}
+<div class="price-card reveal" id="flavor-card">
+  <h3>{{ title | safe }}</h3>
+  <h4 class="list-head">Cake flavors</h4>
+  {{ flavorList(fl.cake, "name") }}
+  <h4 class="list-head">Fillings</h4>
+  {{ flavorList(fl.fillings) }}
+  <h4 class="list-head">Flavored buttercream fillings</h4>
+  {{ flavorList(fl.buttercreamFillings) }}
+  {%- if showShooters %}
+  <h4 class="list-head">Dessert shooter flavors</h4>
+  {{ flavorList(fl.shooters) }}
+  {%- endif %}
+  {%- if showRules %}
+  {%- for r in fl.rules %}<p class="price-note">{{ r }}</p>{% endfor %}
+  {%- endif %}
+</div>
+{%- endmacro %}

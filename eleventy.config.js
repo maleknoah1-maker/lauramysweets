@@ -28,7 +28,46 @@ async function imageHtml(src, alt, sizes = "100vw", attrs = {}) {
   });
 }
 
+// Sprinkles in the side margins only, never behind text. Same seed, same layout on every build.
+function sprinkleHtml(seed = "s", count = 8, opts = {}) {
+  let h = 2166136261;
+  for (const ch of String(seed)) h = Math.imul(h ^ ch.charCodeAt(0), 16777619);
+  const rand = () => {
+    h = (h + 0x6d2b79f5) | 0;
+    let t = Math.imul(h ^ (h >>> 15), 1 | h);
+    t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+  };
+  const colors = ["md", "bl", "ro", "md", "ro"];
+  const top = opts.top ?? 4;
+  const bottom = opts.bottom ?? 96;
+  const spans = [];
+  for (let i = 0; i < count; i++) {
+    const side = i % 2 ? "right" : "left";
+    const y = (top + ((bottom - top) * (i + rand() * 0.9)) / count).toFixed(1);
+    const dot = rand() < 0.2;
+    const shape = dot ? "d" : rand() < 0.3 ? "p s" : "p";
+    const c = colors[Math.floor(rand() * colors.length)];
+    // Wide screens: anywhere in the margin outside the 1200px content column.
+    const f = (0.12 + rand() * 0.6).toFixed(2);
+    const rot = Math.round(rand() * 150 - 75);
+    spans.push(
+      `<span class="${shape} ${c} wide" style="${side}:calc((100% - 1200px) / 2 * ${f});top:${y}%${dot ? "" : `;transform:rotate(${rot}deg)`}"></span>`
+    );
+    // Narrow screens: hugging the edge, tilted gently so it stays inside the 16px gutter.
+    if (i < (opts.narrow ?? Math.ceil(count * 0.6))) {
+      const nRot = Math.round(rand() * 24 - 12);
+      spans.push(
+        `<span class="${shape} ${c} narrow" style="${side}:${(1 + rand() * 3).toFixed(0)}px;top:${y}%${dot ? "" : `;transform:rotate(${nRot}deg)`}"></span>`
+      );
+    }
+  }
+  return `<div class="sprinkles" aria-hidden="true">${spans.join("")}</div>`;
+}
+
 export default function (eleventyConfig) {
+  eleventyConfig.addShortcode("sprinkles", sprinkleHtml);
+
   eleventyConfig.addPassthroughCopy({ "src/assets": "assets" });
   eleventyConfig.addPassthroughCopy({ "src/favicons": "/" });
 

@@ -158,7 +158,12 @@ mark.ph { background: #FFF1B8; color: #5A4500; padding: 0 .25em; border-radius: 
 .sprinkles { position: absolute; inset: 0; pointer-events: none; overflow: hidden; z-index: 0; }
 .sprinkles span { position: absolute; display: block; }
 .sprinkles .p { width: 7px; height: 22px; border-radius: 4px; }
+.sprinkles .p.s { height: 15px; }
 .sprinkles .d { width: 8px; height: 8px; border-radius: 50%; }
+.sprinkles .wide { display: none; }
+@media (min-width: 1280px) { .sprinkles .wide { display: block; } .sprinkles .narrow { display: none; } }
+.section, .page-hero, .site-footer { position: relative; }
+.section > .wrap, .page-hero > .wrap, .site-footer > .wrap { position: relative; z-index: 1; }
 .sprinkles .md { background: var(--mint-deep); }
 .sprinkles .bl { background: var(--blush); }
 .sprinkles .ro { background: var(--rose); }
@@ -209,7 +214,7 @@ mark.ph { background: #FFF1B8; color: #5A4500; padding: 0 .25em; border-radius: 
 @media (min-width: 1024px) {
 
   .hero-bg-circle { width: 700px; height: 700px; right: -140px; top: 40px; }
-  .hero-inner { grid-template-columns: 560px 1fr; gap: 40px; padding: 50px 40px 40px 56px; max-width: 1280px; }
+  .hero-inner { grid-template-columns: 560px 1fr; gap: 40px; padding: 50px 80px 40px 96px; max-width: 1280px; }
   .hero-copy { gap: 22px; padding-top: 18px; }
   .hero-copy .script-label { font-size: 1.875rem; white-space: nowrap; }
   .hero h1 { font-size: 4.75rem; }
@@ -495,3 +500,14 @@ a.card:hover, .card.lift:hover { transform: translateY(-4px); box-shadow: var(--
 .post-meta { color: var(--cocoa); font-size: .9375rem; margin-top: 12px; }
 .post-list { display: grid; gap: 20px; }
 @media (min-width: 900px) { .post-list { grid-template-columns: repeat(2, 1fr); } }
+
+/* Flavor lists, matching the price lists */
+.list-head { font: 700 .8125rem var(--font-body); letter-spacing: .12em; text-transform: uppercase; color: var(--rose-label); margin: 18px 0 2px; }
+.price-card h3 + .list-head { margin-top: 4px; }
+.flavor-list { list-style: none; margin: 0; padding: 0; display: grid; column-gap: 28px; }
+@media (min-width: 480px) { .flavor-list { grid-template-columns: 1fr 1fr; } }
+.flavor-list li { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; padding: 10px 0; border-bottom: 1px dashed var(--border); color: var(--espresso); font-weight: 600; }
+.flavor-list em { font-style: normal; font-weight: 600; font-size: .8125rem; color: var(--rose-label); white-space: nowrap; }
+.prose .flavor-list, .prose .price-list { padding: 0; margin: 0; }
+.prose .flavor-list li { margin: 0; }
+.prose .price-card h3 { margin: 0 0 12px; }

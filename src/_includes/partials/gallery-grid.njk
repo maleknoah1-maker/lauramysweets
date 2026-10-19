@@ -1,6 +1,7 @@
 {#- Expects galleryCategory (string) or shows all with filter tabs when galleryFilter is true -#}
 {%- set photos = gallery | where("category", galleryCategory) if galleryCategory else gallery -%}
 <section class="section" aria-labelledby="gallery-title">
+  {% sprinkles "gal-" + page.url, 8 %}
   <div class="wrap">
     <div class="section-head reveal">
       <span class="script-label">{{ galleryLabel or "Recent work" }}</span>

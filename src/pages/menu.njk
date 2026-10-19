@@ -30,14 +30,7 @@ eleventyComputed:
       <h2 id="flavors-title">Flavors &amp; <em>fillings.</em></h2>
     </div>
     <div class="price-grid">
-      <div class="price-card reveal">
-        <h3>Cake &amp; cupcake flavors</h3>
-        <ul class="tag-list">{% for f in flavors.cake %}<li>{{ f.name }}{% if not f.cupcakes %} (cakes only){% endif %}</li>{% endfor %}</ul>
-        <h3 style="margin-top:24px">Fillings</h3>
-        <ul class="tag-list">{% for f in flavors.fillings %}<li>{{ f }}</li>{% endfor %}</ul>
-        <h3 style="margin-top:24px">Flavored buttercream fillings</h3>
-        <ul class="tag-list">{% for f in flavors.buttercreamFillings %}<li>{{ f }}{% if f == "Vanilla" %} buttercream{% endif %}</li>{% endfor %}</ul>
-      </div>
+      {{ prices.flavors(flavors, "Cakes &amp; cupcakes", false, false) }}
       <div class="price-card reveal">
         <h3>Good to know</h3>
         <ul class="facts" style="margin:0">
@@ -45,8 +38,8 @@ eleventyComputed:
           <li>{{ i.checkDot() }}{{ r }}</li>
           {%- endfor %}
         </ul>
-        <h3 style="margin-top:24px">Dessert shooter flavors</h3>
-        <ul class="tag-list">{% for f in flavors.shooters %}<li>{{ f }}</li>{% endfor %}</ul>
+        <h4 class="list-head" style="margin-top:24px">Dessert shooter flavors</h4>
+        {{ prices.flavorList(flavors.shooters) }}
       </div>
     </div>
   </div>
