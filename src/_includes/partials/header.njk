@@ -1,0 +1,58 @@
+{%- import "partials/icons.njk" as i -%}
+<header class="site-header">
+  <div class="header-pill">
+    <a class="brand" href="/" aria-label="{{ settings.name }}, home">
+      <span class="brand-badge">{{ i.icon("cake", 26, "#292325") }}</span>
+      <span class="brand-name">{{ settings.name }}</span>
+    </a>
+
+    <nav class="main-nav" aria-label="Main">
+      <ul>
+        {%- for item in nav.main %}
+        {%- if item.children %}
+        <li class="has-sub">
+          <button type="button" aria-expanded="false" aria-controls="sub-{{ loop.index }}">{{ item.label }} {{ i.icon("chevron", 16) }}</button>
+          <ul class="sub-menu" id="sub-{{ loop.index }}" hidden>
+            {%- for child in item.children %}
+            <li><a href="{{ child.url }}"{% if page.url == child.url %} aria-current="page"{% endif %}>{{ child.label }}</a></li>
+            {%- endfor %}
+          </ul>
+        </li>
+        {%- else %}
+        <li><a href="{{ item.url }}"{% if page.url == item.url %} aria-current="page"{% endif %}>{{ item.label }}</a></li>
+        {%- endif %}
+        {%- endfor %}
+      </ul>
+    </nav>
+
+    <a class="btn btn-primary header-cta" href="/order/">Order a Cake</a>
+    <button class="menu-btn" type="button" aria-expanded="false" aria-controls="mobile-menu" aria-label="Open menu">{{ i.icon("menu", 22) }}</button>
+  </div>
+</header>
+
+<div class="mobile-menu" id="mobile-menu" hidden>
+  <div class="mobile-menu-top">
+    <a class="brand" href="/"><span class="brand-badge">{{ i.icon("cake", 26, "#292325") }}</span><span class="brand-name">{{ settings.name }}</span></a>
+    <button class="menu-btn" type="button" data-close-menu aria-label="Close menu">{{ i.icon("close", 22) }}</button>
+  </div>
+  <nav aria-label="Mobile">
+    <ul>
+      {%- for item in nav.main %}
+      {%- if item.children %}
+      <li>
+        <span class="group-label">{{ item.label }}</span>
+        <ul class="sub">
+          {%- for child in item.children %}
+          <li><a href="{{ child.url }}">{{ child.label }}</a></li>
+          {%- endfor %}
+        </ul>
+      </li>
+      {%- else %}
+      <li><a href="{{ item.url }}">{{ item.label }}</a></li>
+      {%- endif %}
+      {%- endfor %}
+      <li><a href="/faq/">FAQ</a></li>
+    </ul>
+  </nav>
+  <a class="btn btn-primary" href="/order/">Order a Cake {{ i.icon("arrow", 18) }}</a>
+</div>

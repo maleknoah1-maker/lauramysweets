@@ -1,0 +1,259 @@
+---
+layout: layouts/base.njk
+permalink: /
+title: "Custom Cakes in Coopersburg, PA | Laura, My Sweets"
+description: "Custom birthday cakes, wedding cakes, cupcakes and cake pops, baked to order in Coopersburg, PA for families across the Lehigh Valley. Licensed and insured since 2009."
+---
+{%- import "partials/icons.njk" as i -%}
+{%- set s = settings -%}
+{%- set c = computed -%}
+
+<section class="hero" aria-labelledby="hero-title">
+  <div class="hero-bg-circle" aria-hidden="true"></div>
+  <div class="sprinkles" aria-hidden="true">
+    {%- for p in sprinkles.heroDesktop %}
+    <span class="{{ p.t }} {{ p.c }} desk" style="left:{{ p.x }}%;top:{{ p.y }}px{% if p.r %};transform:rotate({{ p.r }}deg){% endif %}"></span>
+    {%- endfor %}
+    {%- for p in sprinkles.heroPhone %}
+    <span class="{{ p.t }} {{ p.c }} mob" style="left:{{ p.x }}%;top:{{ p.y }}px{% if p.r %};transform:rotate({{ p.r }}deg){% endif %}"></span>
+    {%- endfor %}
+  </div>
+
+  <div class="wrap hero-inner">
+    <div class="hero-copy">
+      <p class="script-label">Licensed <span class="desk-only">&amp; insured </span>home bakery in {{ s.city }},&nbsp;{{ s.region }}</p>
+      <h1 id="hero-title">Custom cakes, <em>made from scratch.</em></h1>
+      <p class="hero-lede">Birthday cakes, wedding cakes, cupcakes and cake pops, designed around your event and baked to order in {{ s.city }} for families across the Lehigh Valley.</p>
+      <div class="hero-ctas">
+        <a class="btn btn-primary" href="/order/">Start a custom order {{ i.icon("arrow", 18) }}</a>
+        {%- if c.quickFrom %}
+        <a class="btn btn-outline" href="/quick-order/" data-track="quick_order_click">Quick Order cakes from {{ c.quickFrom | money }}</a>
+        {%- endif %}
+      </div>
+      <ul class="checks">
+        <li>{{ i.checkDot() }}Everything from scratch</li>
+        <li>{{ i.checkDot() }}Licensed &amp; insured</li>
+        <li>{{ i.checkDot() }}Quick Order cakes in {{ quickOrder.noticeDays }} days</li>
+      </ul>
+      <div class="rating">
+        <span class="stars" aria-hidden="true">★★★★★</span>
+        <span><strong>{{ s.google.rating | rating }}</strong> on Google &middot; {{ s.google.count }} reviews</span>
+      </div>
+    </div>
+
+    <div class="hero-photos">
+      <div class="circle-mint" aria-hidden="true"></div>
+      <div class="circle-blush" aria-hidden="true"></div>
+      <div class="photo-frame photo-arch">{% image hero.main.src, hero.main.alt, "(min-width: 1024px) 350px, 270px", { eager: true } %}</div>
+      <div class="photo-frame photo-circle">{% image hero.circle.src, hero.circle.alt, "(min-width: 1024px) 190px, 120px" %}</div>
+      <div class="photo-frame photo-rect">{% image hero.rect.src, hero.rect.alt, "200px" %}</div>
+      {%- if c.quickFrom %}
+      <a class="quick-card" href="/quick-order/" data-track="quick_order_click">
+        <span class="script-label">Quick Order</span>
+        <strong>From {{ c.quickFrom | money }}</strong>
+        <small>{% for sz in quickOrder.sizes %}{{ sz.label }} serves {{ sz.serves }}{% if not loop.last %} &middot; {% endif %}{% endfor %}</small>
+      </a>
+      {%- endif %}
+    </div>
+  </div>
+
+  <div class="scallop" aria-hidden="true"></div>
+  <nav class="category-band" aria-label="Cake categories">
+    <ul>
+      {%- for cat in nav.categories %}
+      <li><a href="{{ cat.url }}">{{ cat.label }}</a></li>
+      {%- if not loop.last %}<li class="diamond" aria-hidden="true">◆</li>{% endif %}
+      {%- endfor %}
+    </ul>
+  </nav>
+</section>
+
+{# 1. Category cards #}
+<section class="section" aria-labelledby="cats-title">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="script-label">What Laura makes</span>
+      <h2 id="cats-title">Cakes for every <em>celebration.</em></h2>
+      <p>Every order is designed around your event, from first birthdays to weddings.</p>
+    </div>
+    <div class="card-grid four">
+      <a class="card reveal" href="/birthday-cakes/">
+        <div class="card-photo">{% image "/images/originals/pink-vintage-birthday-cake.webp", "Pink and white vintage-style birthday cake with ruffled buttercream piping", "(min-width: 1024px) 280px, (min-width: 640px) 50vw, 100vw" %}</div>
+        <div class="card-body">
+          <h3>Birthday cakes</h3>
+          <p>Kids' and adults' birthday cakes in your colors and theme.</p>
+          <span class="card-price">Cakes from {{ c.cakeFrom | money }}</span>
+          <span class="card-more">See birthday cakes {{ i.icon("arrow", 16) }}</span>
+        </div>
+      </a>
+      <a class="card reveal" href="/smash-cakes/">
+        <div class="card-photo missing"><mark class="ph">[[PLACEHOLDER: smash cake photo]]</mark></div>
+        <div class="card-body">
+          <h3>First birthday &amp; smash</h3>
+          <p>Smash cakes and matching party cakes for the big first birthday.</p>
+          <span class="card-price"><mark class="ph">[[PLACEHOLDER: smash cake pricing]]</mark></span>
+          <span class="card-more">See smash cakes {{ i.icon("arrow", 16) }}</span>
+        </div>
+      </a>
+      <a class="card reveal" href="/wedding-cakes/">
+        <div class="card-photo">{% image "/images/originals/black-white-striped-wedding-cake.webp", "Four-tier black and white striped wedding cake with cascading sugar flowers", "(min-width: 1024px) 280px, (min-width: 640px) 50vw, 100vw" %}</div>
+        <div class="card-body">
+          <h3>Wedding &amp; events</h3>
+          <p>Tiered wedding cakes, bridal showers and dessert tables.</p>
+          <span class="card-price">{{ menu.cakes.tieredNote }}</span>
+          <span class="card-more">See wedding cakes {{ i.icon("arrow", 16) }}</span>
+        </div>
+      </a>
+      <a class="card reveal" href="/cupcakes-cake-pops/">
+        <div class="card-photo missing"><mark class="ph">[[PLACEHOLDER: cupcakes or cake pops photo]]</mark></div>
+        <div class="card-body">
+          <h3>Cupcakes &amp; cake pops</h3>
+          <p>Cupcakes, cake pops, dessert shooters and dipped pretzels.</p>
+          <span class="card-price">From {{ c.cupcakeFrom | money }} a dozen</span>
+          <span class="card-more">See cupcakes &amp; pops {{ i.icon("arrow", 16) }}</span>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+{# 2. Quick Order preview #}
+{%- if c.quickAvailable | length %}
+<section class="section qo-band" aria-labelledby="qo-title">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="script-label">Ready in {{ quickOrder.noticeDays }} days</span>
+      <h2 id="qo-title">Quick Order <em>cakes.</em></h2>
+      <p>Set designs in a 6 or 8 inch size, ready for pickup with {{ quickOrder.noticeDays }} days' notice. Colors can be changed to match your party.</p>
+    </div>
+    <div class="card-grid three">
+      {%- for d in c.quickAvailable | batch(3) | first %}
+      <article class="card lift reveal">
+        {%- if d.photo %}
+        <div class="card-photo">{% image d.photo, d.alt, "(min-width: 1024px) 380px, (min-width: 640px) 50vw, 100vw" %}</div>
+        {%- else %}
+        <div class="card-photo missing"><mark class="ph">[[PLACEHOLDER: photo of the {{ d.name }} design]]</mark></div>
+        {%- endif %}
+        <div class="card-body">
+          <h3>{{ d.name }}</h3>
+          <p>{{ d.description }}</p>
+          <div class="qo-prices">
+            <span>{{ quickOrder.sizes[0].label }} <strong>{{ d.price6 | money }}</strong></span>
+            <span>{{ quickOrder.sizes[1].label }} <strong>{{ d.price8 | money }}</strong></span>
+          </div>
+        </div>
+      </article>
+      {%- endfor %}
+    </div>
+    <div class="center-cta">
+      <a class="btn btn-primary" href="/quick-order/" data-track="quick_order_click">See all {{ c.quickAvailable | length }} designs {{ i.icon("arrow", 18) }}</a>
+    </div>
+  </div>
+</section>
+{%- endif %}
+
+{# 3. How ordering works #}
+<section class="section" aria-labelledby="how-title">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="script-label">Simple from start to finish</span>
+      <h2 id="how-title">How ordering <em>works.</em></h2>
+    </div>
+    <ol class="steps">
+      <li class="reveal">
+        <span class="step-num" aria-hidden="true">1</span>
+        <h3>Tell Laura about your event</h3>
+        <p>Send a custom order request with your date, servings and design ideas, or text or call {{ s.phone }}. Inspiration photos are welcome by text.</p>
+      </li>
+      <li class="reveal">
+        <span class="step-num" aria-hidden="true">2</span>
+        <h3>Get your design and price</h3>
+        <p>Laura replies within {{ s.replyTime | ph | safe }} to talk through flavors, design and price. {{ s.paymentTerms | ph | safe }}</p>
+      </li>
+      <li class="reveal">
+        <span class="step-num" aria-hidden="true">3</span>
+        <h3>Pick up or have it delivered</h3>
+        <p>Pick up in {{ s.city }}, or choose delivery. {{ s.deliveryNote | ph | safe }}</p>
+      </li>
+    </ol>
+    <p class="center-cta"><a class="btn btn-primary" href="/order/">Start a custom order {{ i.icon("arrow", 18) }}</a></p>
+  </div>
+</section>
+
+{# 4. Featured gallery #}
+{%- set featuredPhotos = gallery | selectattr("featured") -%}
+{%- if featuredPhotos | length %}
+<section class="section" aria-labelledby="gallery-title" style="padding-top:0">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="script-label">Recent work</span>
+      <h2 id="gallery-title">From Laura's <em>kitchen.</em></h2>
+    </div>
+    <div class="photo-grid">
+      {%- for p in featuredPhotos | batch(6) | first %}
+      <figure class="reveal">{% image p.image, p.alt, "(min-width: 900px) 380px, 50vw" %}</figure>
+      {%- endfor %}
+    </div>
+    <p class="center-cta"><a class="btn btn-outline" href="/gallery/">View the full gallery</a></p>
+  </div>
+</section>
+{%- endif %}
+
+{# 5. About Laura #}
+<div class="scallop scallop-blush" aria-hidden="true" style="transform:rotate(180deg)"></div>
+<section class="section" aria-labelledby="about-title" style="background:var(--blush-soft)">
+  <div class="wrap about-grid">
+    <div class="about-photo reveal">
+      <div class="owner-placeholder"><mark class="ph">[[PLACEHOLDER: owner photo]]</mark></div>
+    </div>
+    <div class="reveal">
+      <span class="script-label">Meet the baker</span>
+      <h2 id="about-title">Baking for Lehigh Valley <em>families since {{ s.since }}.</em></h2>
+      <p style="margin-top:16px">{{ s.owner }} started {{ s.name }} in {{ s.since }}. Today it's a licensed and insured home bakery in {{ s.city }}, making custom cakes, cupcakes and cake pops to order for birthdays, weddings and everything in between.</p>
+      <p><mark class="ph">[[PLACEHOLDER: Laura's story in her own words]]</mark></p>
+      <ul class="facts">
+        <li>{{ i.checkDot() }}Baking custom orders since {{ s.since }}</li>
+        <li>{{ i.checkDot() }}Licensed &amp; insured home bakery</li>
+        <li>{{ i.checkDot() }}Everything from scratch</li>
+        <li>{{ i.checkDot() }}Kids' baking classes and summer camp</li>
+      </ul>
+      <a class="btn btn-outline" href="/about/">More about Laura</a>
+    </div>
+  </div>
+</section>
+
+{# 6. Reviews #}
+{% include "partials/reviews.njk" %}
+
+{# 7. Classes teaser, only when classes are on #}
+{%- if classes.on %}
+<section class="section" aria-labelledby="classes-title">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="script-label">For young bakers</span>
+      <h2 id="classes-title">Kids' baking classes <em>&amp; camp.</em></h2>
+      <p>{{ classes.description | ph | safe }}</p>
+      <p class="center-cta"><a class="btn btn-primary" href="/classes/">See class dates</a></p>
+    </div>
+  </div>
+</section>
+{%- endif %}
+
+{# 8. FAQ #}
+{%- set faqItems = faqs | faqsFor("home") -%}
+{% include "partials/faq.njk" %}
+
+{# 9. Final call to action #}
+<section class="section final-cta" aria-labelledby="cta-title" style="padding-top:0">
+  <div class="wrap">
+    <div class="panel reveal">
+      <span class="script-label" style="color:var(--blush)">Let's get baking</span>
+      <h2 id="cta-title">Tell Laura about <em>your celebration.</em></h2>
+      <p>Share your date, guest count and ideas, and Laura will get back to you with options and a price. Prefer to talk? Text or call {{ s.phone }}.</p>
+      <div class="buttons">
+        <a class="btn btn-primary" href="/order/">Start a custom order {{ i.icon("arrow", 18) }}</a>
+        <a class="btn btn-outline" href="sms:{{ s.phoneE164 }}" data-track="text_click">Text {{ s.phone }}</a>
+      </div>
+    </div>
+  </div>
+</section>
