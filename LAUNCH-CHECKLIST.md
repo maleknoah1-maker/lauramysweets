@@ -35,8 +35,10 @@ Repo: `maleknoah1-maker/lauramysweets` · Work branch: `build/site-rebuild` · L
 ## 4. Merge and turn on GitHub Pages
 
 - [ ] Open a pull request from `build/site-rebuild` into `main`, review it, and merge.
+- [ ] **Preview first (optional but recommended):** Repo → **Settings → Secrets and variables → Actions → Variables → New repository variable**: name `PATH_PREFIX`, value `/lauramysweets/`. This makes the site work at the github.io preview address and marks every page `noindex` so Google ignores the preview.
 - [ ] Repo → **Settings → Pages → Build and deployment → Source: GitHub Actions.**
-- [ ] Repo → **Actions**: the **Deploy site** workflow should run and finish green. The site is now live at `https://maleknoah1-maker.github.io/lauramysweets/`. That preview address will look broken (missing styles, since the site expects to live at the domain root). That's fine; it works once the custom domain is set below.
+- [ ] Repo → **Actions**: the **Deploy site** workflow should run and finish green (if it didn't run after the merge, open it and click **Run workflow**). The preview is at `https://maleknoah1-maker.github.io/lauramysweets/`. Share it with Laura to click around.
+- [ ] **On launch day, before step 5c:** delete the `PATH_PREFIX` variable, then Actions → Deploy site → **Run workflow**. This rebuilds the site for the domain root and removes the `noindex`. Skipping this would keep Google from indexing the real site.
 
 ## 5. Point lauramysweets.com at GitHub Pages (Wix DNS)
 

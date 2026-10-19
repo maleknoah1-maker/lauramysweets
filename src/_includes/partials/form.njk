@@ -3,7 +3,7 @@
 {% macro open(formName, formId, redirect="/thanks/") -%}
 {%- set unconfigured = formId | isPlaceholder -%}
 <form class="form" method="POST" action="{% if unconfigured %}#{% else %}https://formspree.io/f/{{ formId }}{% endif %}"
-  data-form="{{ formName }}" data-redirect="{{ redirect }}"{% if unconfigured %} data-unconfigured{% endif %} novalidate>
+  data-form="{{ formName }}" data-redirect="{{ redirect | url if redirect else '' }}"{% if unconfigured %} data-unconfigured{% endif %} novalidate>
   <input type="hidden" name="_subject" value="{{ formName }}: new request from lauramysweets.com">
   <div class="hp" aria-hidden="true"><label>Leave this empty <input type="text" name="_gotcha" tabindex="-1" autocomplete="off"></label></div>
 {%- endmacro %}

@@ -9,7 +9,7 @@
   <title>{{ pageTitle or title }}</title>
   <meta name="description" content="{{ description }}">
   <link rel="canonical" href="{{ canonical }}">
-  {%- if noindex %}<meta name="robots" content="noindex">{% endif %}
+  {%- if noindex or preview %}<meta name="robots" content="noindex">{% endif %}
 
   <meta property="og:type" content="{{ ogType or 'website' }}">
   <meta property="og:site_name" content="{{ s.name }}">

@@ -1,4 +1,5 @@
 import Image from "@11ty/eleventy-img";
+import { HtmlBasePlugin } from "@11ty/eleventy";
 import path from "node:path";
 import { buildSchema } from "./src/_config/schema.js";
 
@@ -67,6 +68,11 @@ function sprinkleHtml(seed = "s", count = 8, opts = {}) {
 }
 
 export default function (eleventyConfig) {
+  // Preview builds (before the domain points here) live under /lauramysweets/ on github.io.
+  // Set the PATH_PREFIX repo variable to "/lauramysweets/" for that; remove it at launch.
+  eleventyConfig.addPlugin(HtmlBasePlugin);
+  eleventyConfig.addGlobalData("preview", (process.env.PATH_PREFIX || "/") !== "/");
+
   eleventyConfig.addShortcode("sprinkles", sprinkleHtml);
   eleventyConfig.addShortcode("schema", function () {
     return buildSchema(this.ctx);
@@ -169,6 +175,7 @@ export default function (eleventyConfig) {
 
   return {
     dir: { input: "src", output: "_site", includes: "_includes", data: "_data" },
+    pathPrefix: process.env.PATH_PREFIX || "/",
     templateFormats: ["njk", "md", "html"],
     htmlTemplateEngine: "njk",
     markdownTemplateEngine: "njk",

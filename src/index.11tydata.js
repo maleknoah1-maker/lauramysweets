@@ -22,7 +22,8 @@ export default {
   eleventyComputed: {
     preloadSrcset: async () => {
       const meta = await Image(HERO, { widths: [360, 540, 720, 1200, "auto"], formats: ["webp"], outputDir: "_site/img/", urlPath: "/img/" });
-      return meta.webp.map((s) => `${s.url} ${s.width}w`).join(", ");
+      const prefix = (process.env.PATH_PREFIX || "/").replace(/\/$/, "");
+      return meta.webp.map((s) => `${prefix}${s.url} ${s.width}w`).join(", ");
     },
   },
 };
